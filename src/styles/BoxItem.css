@@ -1,0 +1,94 @@
+.box-item {
+    width: var(--item-size);
+    height: var(--item-size);
+}
+
+.active > .item-1,
+.active > .item-5,
+.active > .item-6,
+.box-field:hover > .item-1,
+.box-field:hover > .item-5,
+.box-field:hover > .item-6 {
+    width: var(--item-size-hover);
+    height: var(--item-size-hover);
+}
+
+.active > .item-3,
+.active > .item-4,
+.box-field:hover > .item-3,
+.box-field:hover > .item-4 {
+    border-left: calc(var(--item-size) / 2 + 0.2rem) solid transparent;
+    border-right: calc(var(--item-size) / 2 + 0.2rem) solid transparent;
+}
+
+.active > .item-3,
+.box-field:hover > .item-3 {
+    border-top: calc(var(--item-size) + 0.2rem) solid hsl(var(--red), 50%);
+}
+
+.active > .item-4,
+.box-field:hover > .item-4 {
+    border-bottom: calc(var(--item-size) + 0.2rem) solid hsl(var(--blue), 50%);
+}
+
+.active > .item-2,
+.box-field:hover > .item-2 {
+    width: calc(var(--item-size) - 0.2rem);
+    height: calc(var(--item-size) - 0.2rem);
+}
+
+.item-1 {
+    background-color: hsl(var(--green), 44%);
+    border: 1px solid hsl(var(--green), 34%);
+}
+
+.item-2 {
+    width: calc(var(--item-size) - 0.3rem);
+    height: calc(var(--item-size) - 0.3rem);
+    background-color: hsl(var(--pink), 45%);
+    transform: rotate(45deg);
+}
+
+.item-3 {
+    width: 0;
+    height: 0;
+    border-left: calc(var(--item-size) / 2) solid transparent;
+    border-right: calc(var(--item-size) / 2) solid transparent;
+    border-top: var(--item-size) solid hsl(var(--red), 50%);
+}
+
+.item-4 {
+    width: 0;
+    height: 0;
+    border-left: calc(var(--item-size) / 2) solid transparent;
+    border-right: calc(var(--item-size) / 2) solid transparent;
+    border-bottom: var(--item-size) solid hsl(var(--blue), 50%);
+}
+
+.item-5 {
+    background-color: hsl(var(--yellow), 46%);
+    border: 1px solid hsl(var(--yellow), 35%);
+    border-radius: 50%;
+}
+
+.item-6 {
+    background-color: hsl(var(--orange), 50%);
+    border: hsl(var(--orange), 30%);
+    border-radius: 0.5rem;
+    transform: rotate(12deg) skew(30deg);
+}
+
+.item-1,
+.item-2,
+.item-3,
+.item-4,
+.item-5,
+.item-6 {
+    margin-bottom: 0;
+    transition: margin-bottom 300ms ease-out;
+}
+
+.empty {
+    margin-bottom: calc(var(--field-size) * 2);
+    /* transition: margin-bottom 2000ms ease-out; */
+}

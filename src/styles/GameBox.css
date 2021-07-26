@@ -1,0 +1,7 @@
+.game-box {
+    /* width: fit-content; */
+    border: 2px solid hsl(var(--light-blue), 30%);
+    display: grid;
+    grid-template-columns: repeat(var(--gamebox-columns), var(--field-size));
+    grid-template-rows: repeat(var(--gamebox-rows), var(--field-size));
+}

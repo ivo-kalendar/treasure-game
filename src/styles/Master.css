@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: hsl(var(--light-blue), 65%);
+    color: hsl(var(--light-blue), 15%);
+    font-family: 'Roboto', sans-serif;
+}
+
+.App {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 800px) {
+    .App {
+        flex-direction: column;
+    }
+}

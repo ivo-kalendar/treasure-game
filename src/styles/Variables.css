@@ -1,0 +1,36 @@
+:root {
+    --light-blue: 196, 33%;
+    --orange: 20, 96%;
+    --red: 357, 90%;
+    --white: 200, 10%;
+    --green: 127, 90%;
+    --blue: 224, 80%;
+    --pink: 323, 89%;
+    --yellow: 62, 93%;
+    --gamebox-rows: 9;
+    --gamebox-columns: 7;
+    --field-size: 3rem;
+    --item-size: 2rem;
+    --item-size-hover: 2.2rem;
+}
+/* 
+@media (max-width: 700px) {
+    :root {
+        --gamebox-columns: 8;
+        --gamebox-rows: 9;
+    }
+}
+
+@media (max-width: 550px) {
+    :root {
+        --gamebox-columns: 7;
+        --gamebox-rows: 8;
+    }
+}
+
+@media (max-width: 450px) {
+    :root {
+        --gamebox-columns: 6;
+        --gamebox-rows: 7;
+    }
+} */
