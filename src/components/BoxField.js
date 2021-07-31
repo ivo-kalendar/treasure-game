@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import BoxItem from './BoxItem';
 
 export default function BoxField({
@@ -7,8 +7,8 @@ export default function BoxField({
     active,
     fields,
     matchedFields,
+    setMatchedFields,
     changeFields,
-    // letters,
     rows,
     columns,
     numberOfItems,
@@ -17,6 +17,8 @@ export default function BoxField({
     setNeighbors,
     activeIndex,
     setActiveIndex,
+    swap,
+    setSwap,
 }) {
     //
     //
@@ -24,56 +26,53 @@ export default function BoxField({
     useEffect(() => {
         fillEmptyFields();
         fillAllEmptyFields();
+        makeNewEmptyFields();
         // eslint-disable-next-line
-    }, [fields, matchedFields]);
+    }, [item, fields]);
 
-    // useEffect(() => {
-    //     console.log(matchedFields);
-    // }, [matchedFields]);
+    //
+    //
+    //
+    const letterUp = rows.indexOf(field[0]) + 1;
+    const fieldUp = rows[letterUp] && rows[letterUp] + field[1];
+    const indexUp = fields.findIndex((el) => el.field === fieldUp);
 
-    // useEffect(() => {
-    //     if (Object.entries(neighbors).length) {
-    //         console.log(neighbors);
-    //     }
-    //     // eslint-disable-next-line
-    // }, [neighbors]);
+    const upperItem = fields[indexUp]?.element;
+
+    const randomItem = `item-${Math.ceil(Math.random() * numberOfItems)}`;
+    const lastItem = field.includes(rows[rows.length - 1]);
+    let element = upperItem ? upperItem : randomItem;
 
     //
     //
     //
     const fillEmptyFields = () => {
-        if (item === 'empty') {
-            const lastItem = field.includes(rows[rows.length - 1]);
-            let element = `item-${Math.ceil(Math.random() * numberOfItems)}`;
-            let newObj = { field, element, active };
-
-            if (lastItem) {
-                changeFields((oldArr) => {
-                    oldArr[index] = newObj;
-                    return [...oldArr];
-                });
-            }
+        if (item === 'empty' && lastItem) {
+            changeFields((oldArr) => {
+                oldArr[index] = { field, element, active };
+                return [...oldArr];
+            });
         }
     };
 
     const fillAllEmptyFields = () => {
-        for (let i = rows.length - 2; i >= 0; i--) {
-            if (item === 'empty' && field.includes(rows[i])) {
-                const letterUp = rows.indexOf(field[0]) + 1;
-                const fieldUp = rows[letterUp] + field[1];
-                const indexUp = fields.findIndex((el) => el.field === fieldUp);
+        if (item === 'empty' && !lastItem) {
+            let newObj = { field, element, active };
+            changeFields((oldArr) => {
+                oldArr[index] = { ...newObj, element: oldArr[indexUp].element };
 
-                changeFields((oldArr) => {
-                    let upperElement = oldArr[indexUp].element;
-                    oldArr[index] = { ...oldArr[index], element: upperElement };
-                    return [...oldArr];
-                });
+                return [...oldArr];
+            });
+        }
+    };
 
-                changeFields((oldArr) => {
-                    oldArr[indexUp] = { ...oldArr[indexUp], element: 'empty' };
-                    return [...oldArr];
-                });
-            }
+    const makeNewEmptyFields = () => {
+        if (item === 'empty' && !lastItem) {
+            changeFields((oldArr) => {
+                oldArr[indexUp] = { ...oldArr[indexUp], element: 'empty' };
+
+                return [...oldArr];
+            });
         }
     };
 
@@ -145,6 +144,7 @@ export default function BoxField({
 
     const clicked = () => {
         let activeField = false;
+        let oldSwapObj;
         if (Object.entries(neighbors).length) {
             Object.entries(neighbors).forEach(([key, value]) => {
                 if (value === field) {
@@ -152,6 +152,7 @@ export default function BoxField({
                     let swapEl = fields[index].element;
                     let activeObj = { ...fields[activeIndex], element: swapEl };
                     let swapObj = { ...fields[index], element: activeEl };
+                    oldSwapObj = fields[index];
                     changeFields((oldArr) => {
                         oldArr[activeIndex] = activeObj;
                         oldArr[index] = swapObj;
@@ -160,10 +161,12 @@ export default function BoxField({
                     });
                     setNeighbors({});
                     activeField = true;
+                    return oldSwapObj;
                 }
             });
         }
 
+        // if no active field
         if (!activeField) {
             getNeighbors();
 
@@ -172,18 +175,37 @@ export default function BoxField({
                     oldArr[i].active = '';
                 });
                 oldArr[index] = { ...oldArr[index], active: 'active' };
+
                 return [...oldArr];
             });
+
+            setSwap(() => [{ fieldIndex: index, ...fields[index] }]);
+
             setActiveIndex(index);
         }
 
+        // if active field
         if (activeField) {
+            setSwap((actSwapObj) => {
+                setTimeout(() => {
+                    console.log(matchedFields);
+                }, 100);
+                return [...actSwapObj, { fieldIndex: index, ...oldSwapObj }];
+            });
+
             changeFields((oldArr) => {
                 oldArr.forEach((obj, i) => {
                     oldArr[i].active = '';
                 });
+
                 return [...oldArr];
             });
+
+            setTimeout(() => {
+                setMatchedFields([]);
+            }, 1000);
+
+            // console.log(matchedFields);
             setActiveIndex(undefined);
         }
     };

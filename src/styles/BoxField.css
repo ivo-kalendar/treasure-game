@@ -4,6 +4,7 @@
     align-items: center;
     border: 1px solid hsl(var(--light-blue), 50%);
     background-color: hsl(var(--light-blue), 75%);
+    user-select: none;
 }
 
 .box-field:hover {

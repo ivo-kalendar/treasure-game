@@ -84,11 +84,12 @@
 .item-4,
 .item-5,
 .item-6 {
+    z-index: 2;
     margin-bottom: 0;
-    transition: margin-bottom 300ms ease-out;
+    transition: margin-bottom 150ms ease-out;
 }
 
 .empty {
     margin-bottom: calc(var(--field-size) * 2);
-    /* transition: margin-bottom 2000ms ease-out; */
+    /* transition: outline 500ms ease-out; */
 }

@@ -7,7 +7,7 @@ export default function GameBox() {
     const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
     let different = 6;
     // State variables //
-    const [match, setMatch] = useState(['00']);
+    const [swap, setSwap] = useState([]);
     const [fields, setFields] = useState([]);
     const [matchedFields, setMatchedFields] = useState([]);
     const [neighbors, setNeighbors] = useState({});
@@ -18,30 +18,33 @@ export default function GameBox() {
     // Execute Functions //
     useEffect(() => {
         makeFields();
-        fillFields();
+        // fillFields();
         // eslint-disable-next-line
     }, []);
 
-    useEffect(() => {
-        if (match.length) {
-            console.log(match);
-            setMatch([]);
-        } else {
-            console.log(match, 'empty arr...');
-        }
-    }, [match]);
+    // useEffect(() => {
+    //     console.log(matchedFields);
+    // }, [matchedFields]);
+
+    // useEffect(() => {
+    //     if (swap.length === 2) {
+    //         console.log('MATCH');
+    //     }
+    // }, [swap]);
 
     useEffect(() => {
         setTimeout(() => {
             checkMatch();
-        }, 100);
+        }, 200);
+
         // eslint-disable-next-line
     }, [fields]);
 
     useEffect(() => {
-        makeEmptyFields();
+        // makeEmptyFields();
+        if (matchedFields.length && !swap.length) setMatchedFields([]);
         // eslint-disable-next-line
-    }, [matchedFields, fields]);
+    }, [matchedFields]);
 
     //
     //
@@ -56,11 +59,13 @@ export default function GameBox() {
                 columns.forEach((e, i) => {
                     let field = `${el}${i + 1}`;
                     let emptyObj = { field, element: 'empty', active: '' };
-                    let oldObj = fields.filter((obj) => obj.field === field);
+                    // let oldObj = fields.filter((obj) => obj.field === field);
 
-                    !oldObj.length
-                        ? emptyArr.push(emptyObj)
-                        : emptyArr.push(...oldObj);
+                    emptyArr.push(emptyObj);
+
+                    // !oldObj.length
+                    //     ? emptyArr.push(emptyObj)
+                    //     : emptyArr.push(...oldObj);
                 });
             });
 
@@ -72,61 +77,61 @@ export default function GameBox() {
     //
     //
     // Fill empty fields with items //
-    const fillFields = () => {
-        if (fields.length) {
-            rows.reverse();
-            rows.forEach((el) => {
-                columns.forEach((e, i) => {
-                    let field = `${el}${i + 1}`;
-                    let element = `item-${Math.ceil(
-                        Math.random() * different
-                    )}`;
-                    let newObj = { field, element, active: '' };
-                    let oldObj = fields.filter(
-                        (obj) => obj.element === 'empty'
-                    );
+    // const fillFields = () => {
+    //     if (fields.length) {
+    //         rows.reverse();
+    //         rows.forEach((el) => {
+    //             columns.forEach((e, i) => {
+    //                 let field = `${el}${i + 1}`;
+    //                 let element = `item-${Math.ceil(
+    //                     Math.random() * different
+    //                 )}`;
+    //                 let newObj = { field, element, active: '' };
+    //                 let oldObj = fields.filter(
+    //                     (obj) => obj.element === 'empty'
+    //                 );
 
-                    if (oldObj.length) {
-                        setFields((oldArr) => {
-                            let index = fields.findIndex(
-                                (el) => el.field === field
-                            );
-                            oldArr[index] = newObj;
-                            return oldArr;
-                        });
-                    }
-                });
-            });
-        }
-    };
+    //                 if (oldObj.length) {
+    //                     setFields((oldArr) => {
+    //                         let index = fields.findIndex(
+    //                             (el) => el.field === field
+    //                         );
+    //                         oldArr[index] = newObj;
+    //                         return oldArr;
+    //                     });
+    //                 }
+    //             });
+    //         });
+    //     }
+    // };
 
     //
     //
     //
     // Clear items from Matched fields //
-    const makeEmptyFields = () => {
-        if (matchedFields.length) {
-            let arrMatch = [];
-            let fieldArr = [];
-            matchedFields.forEach((arr) => arrMatch.push(...arr));
-            arrMatch.forEach((obj) => fieldArr.push(obj.field));
-            let uniqueFields = [...new Set(fieldArr)];
-            fields.forEach((obj, i) => {
-                let newObj;
-                uniqueFields.forEach((str) => {
-                    if (obj.field === str) {
-                        newObj = obj;
-                        newObj.element = 'empty';
-                    }
-                });
-                setFields((oldArr) => {
-                    if (newObj) oldArr[i] = newObj;
-                    return oldArr;
-                });
-            });
-            setMatchedFields([]);
-        }
-    };
+    // const makeEmptyFields = () => {
+    //     if (matchedFields.length) {
+    //         let arrMatch = [];
+    //         let fieldArr = [];
+    //         matchedFields.forEach((arr) => arrMatch.push(...arr));
+    //         arrMatch.forEach((obj) => fieldArr.push(obj.field));
+    //         let uniqueFields = [...new Set(fieldArr)];
+    //         fields.forEach((obj, i) => {
+    //             let newObj;
+    //             uniqueFields.forEach((str) => {
+    //                 if (obj.field === str) {
+    //                     newObj = obj;
+    //                     newObj.element = 'empty';
+    //                 }
+    //             });
+    //             setFields((oldArr) => {
+    //                 if (newObj) oldArr[i] = newObj;
+    //                 return oldArr;
+    //             });
+    //         });
+    //         // setMatchedFields([]);
+    //     }
+    // };
 
     //
     //
@@ -140,7 +145,6 @@ export default function GameBox() {
             chekDirectionMatch(matchThree, columns);
         }
         if (matchThree.length) {
-            setMatch(() => [...match, ...matchThree]);
             matchThree = [...new Set(matchThree)];
             fields.forEach((obj, i) => {
                 let newObj;
@@ -148,7 +152,6 @@ export default function GameBox() {
                     newObj = obj;
                     newObj.element = 'empty';
                     setMatchedFields(() => [...matchThree]);
-                    // console.log(matchThree);
                 }
             });
         }
@@ -191,6 +194,7 @@ export default function GameBox() {
                     item={element}
                     active={active}
                     matchedFields={matchedFields}
+                    setMatchedFields={setMatchedFields}
                     changeFields={setFields}
                     rows={rows}
                     columns={columns.length}
@@ -200,6 +204,8 @@ export default function GameBox() {
                     setNeighbors={setNeighbors}
                     activeIndex={activeIndex}
                     setActiveIndex={setActiveIndex}
+                    swap={swap}
+                    setSwap={setSwap}
                 />
             ))}
         </div>
