@@ -4,9 +4,11 @@
 }
 
 .active > .item-1,
+.active > .special-1,
 .active > .item-5,
 .active > .item-6,
 .box-field:hover > .item-1,
+.box-field:hover > .special-1,
 .box-field:hover > .item-5,
 .box-field:hover > .item-6 {
     width: var(--item-size-hover);
@@ -40,6 +42,14 @@
 .item-1 {
     background-color: hsl(var(--green), 44%);
     border: 1px solid hsl(var(--green), 34%);
+}
+
+.special-1 {
+    background-color: #000;
+    border: 1px solid hsl(var(--light-blue), 75%);
+    border-radius: 1rem 0;
+    transform: rotate(-360deg);
+    animation: rotateItem 2000ms ease-in-out infinite;
 }
 
 .item-2 {
@@ -79,6 +89,7 @@
 }
 
 .item-1,
+.special-1,
 .item-2,
 .item-3,
 .item-4,

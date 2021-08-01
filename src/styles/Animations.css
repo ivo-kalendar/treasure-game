@@ -1,0 +1,13 @@
+@keyframes rotateItem {
+    0% {
+        border: 1px solid hsl(var(--light-blue), 75%);
+        transform: rotate(-360deg);
+    }
+    50% {
+        border: 0.3rem solid hsl(var(--light-blue), 75%);
+    }
+    100% {
+        border: 1px solid hsl(var(--light-blue), 75%);
+        transform: rotate(360deg);
+    }
+}

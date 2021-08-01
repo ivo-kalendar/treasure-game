@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import BoxItem from './BoxItem';
 
 export default function BoxField({
@@ -19,6 +19,11 @@ export default function BoxField({
     setActiveIndex,
     swap,
     setSwap,
+    points,
+    setPoints,
+    specialItems,
+    setSpecialItems,
+    moves,
 }) {
     //
     //
@@ -30,6 +35,10 @@ export default function BoxField({
         // eslint-disable-next-line
     }, [item, fields]);
 
+    useEffect(() => {
+        checkForSpecialItem();
+    }, [item]);
+
     //
     //
     //
@@ -39,15 +48,76 @@ export default function BoxField({
 
     const upperItem = fields[indexUp]?.element;
 
-    const randomItem = `item-${Math.ceil(Math.random() * numberOfItems)}`;
+    let randomItem = `item-${Math.ceil(Math.random() * numberOfItems)}`;
+    // randomItem = pushSpecialItem();
     const lastItem = field.includes(rows[rows.length - 1]);
     let element = upperItem ? upperItem : randomItem;
 
     //
     //
     //
+    //
+    let r1 = !specialItems.length && points > 300;
+    let r2 = specialItems.length === 1 && points > 600;
+    let r3 = specialItems.length === 2 && points > 900;
+    let r4 = specialItems.length === 3 && points > 1200 && moves < 20;
+    let r5 = specialItems.length === 4 && points > 1500 && moves < 25;
+    //
+    //
+    //
+
+    // element = specialItem ? specialItem : element;
+
+    // const pushSpecialItem = () => {
+    //     if (
+    //         specialItems.length &&
+    //         specialItems[0] === 'special-1' &&
+    //         randomItem &&
+    //         item === 'empty'
+    //     ) {
+    //         randomItem = specialItems[0];
+    //         setSpecialItems((oldArr) => [`used-${oldArr[0]}`]);
+    //         return randomItem;
+    //     } else {
+    //         return randomItem;
+    //     }
+    // };
+
+    const checkForSpecialItem = () => {
+        if (item === 'empty') {
+            if (r1) {
+                setSpecialItems(['special-1']);
+            }
+            if (r2 || r3 || r4 || r5) {
+                setSpecialItems((oldArr) => ['special-1', ...oldArr]);
+            }
+        }
+    };
+
+    //
+    //
+    //
     const fillEmptyFields = () => {
-        if (item === 'empty' && lastItem) {
+        if (
+            specialItems.length &&
+            specialItems[0] === 'special-1' &&
+            randomItem &&
+            item === 'empty' &&
+            lastItem
+        ) {
+            element = specialItems[0];
+            setSpecialItems((oldArr) => {
+                oldArr[0] = 'used-item';
+                return [...oldArr];
+            });
+
+            changeFields((oldArr) => {
+                oldArr[index] = { field, element, active };
+                return [...oldArr];
+            });
+        }
+
+        if (item === 'empty' && lastItem && !r1 && !r2 && !r3 && !r4 && !r5) {
             changeFields((oldArr) => {
                 oldArr[index] = { field, element, active };
                 return [...oldArr];
@@ -144,6 +214,7 @@ export default function BoxField({
 
     const clicked = () => {
         let activeField = false;
+
         let oldSwapObj;
         if (Object.entries(neighbors).length) {
             Object.entries(neighbors).forEach(([key, value]) => {
@@ -184,12 +255,44 @@ export default function BoxField({
             setActiveIndex(index);
         }
 
-        // if active field
-        if (activeField) {
+        if (activeField && swap[0].element === 'special-1') {
+            let blowLines = [];
+
             setSwap((actSwapObj) => {
-                setTimeout(() => {
-                    console.log(matchedFields);
-                }, 100);
+                return [...actSwapObj, { fieldIndex: index, ...oldSwapObj }];
+            });
+
+            fields.forEach((obj, i) => {
+                let l = obj.field.includes(field[0]);
+                let n = obj.field.includes(field[1]);
+                if (l || n) {
+                    changeFields((oldArr) => {
+                        oldArr[i] = {
+                            ...oldArr[i],
+                            element: 'empty',
+                            active: '',
+                        };
+                        return [...oldArr];
+                    });
+                    // console.log(obj, i);
+                    blowLines.unshift(fields[i].field);
+                }
+            });
+            setMatchedFields((oldArr) => [...oldArr, ...blowLines]);
+            setPoints((prev) => prev + 85);
+
+            setTimeout(() => {
+                setMatchedFields([]);
+            }, 1000);
+
+            // console.log(matchedFields);
+            setActiveIndex(undefined);
+            // console.log(swap, field);
+        }
+
+        // if active field
+        if (activeField && swap[0]?.element !== 'special-1') {
+            setSwap((actSwapObj) => {
                 return [...actSwapObj, { fieldIndex: index, ...oldSwapObj }];
             });
 
