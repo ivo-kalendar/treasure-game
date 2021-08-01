@@ -85,7 +85,7 @@ export default function GameBox({
         let eP = getPoints() ? getPoints() : 0;
         setPoints((prev) => prev + eP);
 
-        console.log('MATCH ON SWAP', matchedFields);
+        // console.log('MATCH ON SWAP', matchedFields);
         setSwapMatch((prev) => {
             let { points, count } = prev;
             points = points + matchedFields.length;
@@ -195,7 +195,6 @@ export default function GameBox({
                     });
                 }
             });
-            // }
         }
     };
 

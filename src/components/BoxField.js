@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import BoxItem from './BoxItem';
 
 export default function BoxField({
@@ -28,20 +28,8 @@ export default function BoxField({
     //
     //
     //
-    useEffect(() => {
-        fillEmptyFields();
-        fillAllEmptyFields();
-        makeNewEmptyFields();
-        // eslint-disable-next-line
-    }, [item, fields]);
-
-    useEffect(() => {
-        checkForSpecialItem();
-    }, [item]);
-
-    //
-    //
-    //
+    // Basic variables //
+    // let blow = '';
     const letterUp = rows.indexOf(field[0]) + 1;
     const fieldUp = rows[letterUp] && rows[letterUp] + field[1];
     const indexUp = fields.findIndex((el) => el.field === fieldUp);
@@ -49,12 +37,8 @@ export default function BoxField({
     const upperItem = fields[indexUp]?.element;
 
     let randomItem = `item-${Math.ceil(Math.random() * numberOfItems)}`;
-    // randomItem = pushSpecialItem();
     const lastItem = field.includes(rows[rows.length - 1]);
     let element = upperItem ? upperItem : randomItem;
-
-    //
-    //
     //
     //
     let r1 = !specialItems.length && points > 300;
@@ -62,26 +46,39 @@ export default function BoxField({
     let r3 = specialItems.length === 2 && points > 900;
     let r4 = specialItems.length === 3 && points > 1200 && moves < 20;
     let r5 = specialItems.length === 4 && points > 1500 && moves < 25;
-    //
-    //
-    //
 
-    // element = specialItem ? specialItem : element;
+    //
+    //
+    //
+    // useEffect(() => {
+    //     fillEmptyFields();
+    //     fillAllEmptyFields();
+    //     makeNewEmptyFields();
+    //     // eslint-disable-next-line
+    // }, [item, fields]);
 
-    // const pushSpecialItem = () => {
-    //     if (
-    //         specialItems.length &&
-    //         specialItems[0] === 'special-1' &&
-    //         randomItem &&
-    //         item === 'empty'
-    //     ) {
-    //         randomItem = specialItems[0];
-    //         setSpecialItems((oldArr) => [`used-${oldArr[0]}`]);
-    //         return randomItem;
-    //     } else {
-    //         return randomItem;
+    useEffect(() => {
+        fillEmptyFields();
+        fillAllEmptyFields();
+        makeNewEmptyFields();
+        // eslint-disable-next-line
+    }, [fields, item]);
+
+    useEffect(() => {
+        checkForSpecialItem();
+        // eslint-disable-next-line
+    }, [item]);
+
+    // useEffect(() => {
+    //     if (matchedFields.includes(field)) {
+    //         console.log(field);
+    //         field = 'blow';
     //     }
-    // };
+    // }, [matchedFields]);
+
+    //
+    //
+    //
 
     const checkForSpecialItem = () => {
         if (item === 'empty') {
@@ -129,7 +126,10 @@ export default function BoxField({
         if (item === 'empty' && !lastItem) {
             let newObj = { field, element, active };
             changeFields((oldArr) => {
-                oldArr[index] = { ...newObj, element: oldArr[indexUp].element };
+                oldArr[index] = {
+                    ...newObj,
+                    element: oldArr[indexUp].element,
+                };
 
                 return [...oldArr];
             });
@@ -255,6 +255,7 @@ export default function BoxField({
             setActiveIndex(index);
         }
 
+        // if special item is an active element //
         if (activeField && swap[0].element === 'special-1') {
             let blowLines = [];
 
@@ -266,15 +267,16 @@ export default function BoxField({
                 let l = obj.field.includes(field[0]);
                 let n = obj.field.includes(field[1]);
                 if (l || n) {
-                    changeFields((oldArr) => {
-                        oldArr[i] = {
-                            ...oldArr[i],
-                            element: 'empty',
-                            active: '',
-                        };
-                        return [...oldArr];
-                    });
-                    // console.log(obj, i);
+                    setTimeout(() => {
+                        changeFields((oldArr) => {
+                            oldArr[i] = {
+                                ...oldArr[i],
+                                element: 'empty',
+                                active: '',
+                            };
+                            return [...oldArr];
+                        });
+                    }, 300);
                     blowLines.unshift(fields[i].field);
                 }
             });
@@ -285,9 +287,7 @@ export default function BoxField({
                 setMatchedFields([]);
             }, 1000);
 
-            // console.log(matchedFields);
             setActiveIndex(undefined);
-            // console.log(swap, field);
         }
 
         // if active field
@@ -314,7 +314,11 @@ export default function BoxField({
     };
 
     return (
-        <div className={`box-field ${field} ${active}`} onClick={clicked}>
+        <div
+            className={`box-field ${field} ${active} ${
+                matchedFields.includes(field) && 'blow'
+            }`}
+            onClick={clicked}>
             <BoxItem item={item} />
         </div>
     );

@@ -18,3 +18,7 @@
     border: 1px solid hsl(var(--light-blue), 20%);
     box-shadow: 0px 0px 15px hsl(var(--light-blue), 10%);
 }
+
+.blow {
+    background-color: rgb(0, 78, 72);
+}
