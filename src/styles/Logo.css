@@ -1,0 +1,12 @@
+.logo {
+    z-index: -99;
+    position: absolute;
+    display: block;
+    top: -5rem;
+}
+
+.logo > img {
+    width: 120%;
+    height: auto;
+    margin-left: -1.8rem;
+}

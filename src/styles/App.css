@@ -2,6 +2,9 @@
 @import './Variables.css';
 @import './Animations.css';
 @import './Master.css';
+@import './Logo.css';
+@import './Play.css';
+@import './HowToPlay.css';
 @import './GameBox.css';
 @import './BoxField.css';
 @import './BoxItem.css';

@@ -1,7 +1,22 @@
+.screen {
+    transform: scale(10);
+    background-color: hsl(var(--light-blue), 30%);
+    transition: transform 300ms ease-in-out, background-color 600ms ease-in-out;
+}
+
+.game-screen {
+    transform: scale(1);
+    background-color: hsl(var(--light-blue), 60%);
+    transition: transform 300ms ease-in-out, background-color 600ms ease-in-out;
+}
+
 .game-box {
     /* width: fit-content; */
     border: 2px solid hsl(var(--light-blue), 30%);
     display: grid;
     grid-template-columns: repeat(var(--gamebox-columns), var(--field-size));
     grid-template-rows: repeat(var(--gamebox-rows), var(--field-size));
+    /* padding: 1rem; */
+
+    margin: 3rem 1rem 1rem 1rem;
 }

@@ -8,6 +8,8 @@ export default function GameBox({
     moves,
     setSwapMatch,
     setLuckyMatch,
+    startGame,
+    setStartGame,
 }) {
     // Basic variables //
     const columns = [1, 2, 3, 4, 5, 6, 7];
@@ -26,6 +28,7 @@ export default function GameBox({
     // Execute Functions //
     useEffect(() => {
         makeFields();
+        setStartGame('init');
         // eslint-disable-next-line
     }, []);
 
@@ -253,6 +256,8 @@ export default function GameBox({
                     specialItems={specialItems}
                     setSpecialItems={setSpecialItems}
                     moves={moves}
+                    startGame={startGame}
+                    setStartGame={setStartGame}
                 />
             ))}
         </div>

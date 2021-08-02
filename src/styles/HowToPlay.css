@@ -1,0 +1,10 @@
+.howtoplay {
+    position: absolute;
+    right: 1rem;
+    font-weight: 900;
+    font-size: 1rem;
+}
+
+.howtoplay:active {
+    font-size: 0.98rem;
+}

@@ -7,8 +7,10 @@ export default function GameBar({
 }) {
     return (
         <div className='game-bar'>
-            <h1>Treasure Game !!!</h1>
-            <h2>Points: {points}</h2>
+            <h2 style={{ transform: 'scale(.8,1.5)', fontSize: '4rem' }}>
+                <span>{points}</span>
+                <span style={{ fontSize: '1rem' }}> pts.</span>
+            </h2>
             <h3>Moves: {moves}</h3>
             <h4>Keys: {keys}</h4>
             <h5>
