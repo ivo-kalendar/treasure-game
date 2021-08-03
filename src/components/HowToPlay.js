@@ -1,4 +1,4 @@
-export default function () {
+export default function HowToPlay() {
     return (
         <button
             style={{

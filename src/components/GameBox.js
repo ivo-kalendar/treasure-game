@@ -52,7 +52,11 @@ export default function GameBox({
             makeAMove();
             matchOnSwap(); // match on swap
         }
-        if (swap.length === 2 && !matchedFields.length) {
+        if (
+            swap.length === 2 &&
+            !matchedFields.length &&
+            swap[0].element !== 'special-1'
+        ) {
             makeAMove();
             swapBack(); // no match
         }

@@ -1,0 +1,54 @@
+.levelCompleted {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    background-color: hsla(var(--light-blue), 35%, 40%);
+    /* padding: 1.5rem 3rem; */
+    padding: 2rem;
+}
+
+.levelCompleted > h1 {
+    color: #fff;
+    text-shadow: 1px 1px 1px hsl(var(--white), 45%),
+        0 0 1rem hsl(var(--white), 80%);
+    padding: 2rem 0;
+    background-color: hsla(var(--red), 35%, 80%);
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.levelCompleted > .game-bar {
+    color: #fff;
+    background-color: hsla(var(--light-blue), 35%, 90%);
+    padding: 2rem;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+    text-shadow: 0 0 1.5rem hsl(var(--white), 80%);
+}
+
+.levelCompleted > .game-bar > .no-need,
+.levelCompleted > .game-bar > h5 > .no-need {
+    display: none;
+}
+
+.levelCompleted > .howtoplay {
+    z-index: 3;
+    margin: 7rem 2rem auto auto;
+}
+
+@media (max-width: 800px) {
+    .levelCompleted {
+        padding: 8rem 2rem;
+        width: 100%;
+        height: 100%;
+        transform: scale(1) translate(-50%, -50%);
+    }
+
+    .levelCompleted > .howtoplay {
+        margin: 50vh auto 1rem auto;
+    }
+}

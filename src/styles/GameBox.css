@@ -1,7 +1,7 @@
 .screen {
     transform: scale(10);
     background-color: hsl(var(--light-blue), 30%);
-    transition: transform 300ms ease-in-out, background-color 600ms ease-in-out;
+    transition: transform 10s ease-in-out, background-color 10s ease-in-out;
 }
 
 .game-screen {
