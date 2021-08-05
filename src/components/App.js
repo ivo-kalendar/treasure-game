@@ -24,13 +24,18 @@ export default function App() {
     // const [level, setLevel] = useState(0);
 
     useEffect(() => {
-        getKeys();
-        getStars();
         restartTheGame();
         // eslint-disable-next-line
     }, [points, moves]);
 
     useEffect(() => {
+        getKeys();
+        getStars();
+        // eslint-disable-next-line
+    }, [luckyMatch, swapMatch]);
+
+    useEffect(() => {
+        setGameScreen('');
         if (playGame) setGameScreen('game-');
     }, [playGame]);
 
@@ -54,7 +59,7 @@ export default function App() {
     };
 
     const getKeys = () => {
-        if (points > 250 && moves < 10) setKeys((prev) => (prev = prev + 1));
+        if (points > 200 && moves < 10) setKeys((prev) => (prev = prev + 1));
         if (points > 500 && moves < 20) setKeys((prev) => (prev = prev + 1));
         if (points > 750 && moves < 25) setKeys((prev) => (prev = prev + 1));
         if (points > 1000 && moves < 30) setKeys((prev) => (prev = prev + 1));

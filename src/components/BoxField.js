@@ -227,6 +227,9 @@ export default function BoxField({
 
     const clicked = () => {
         let activeField = false;
+        let noEmptyFileds = !fields.filter((o) => o.element === 'empty').length;
+
+        if (!noEmptyFileds) setSwap([]);
 
         let oldSwapObj;
         if (Object.entries(neighbors).length) {
@@ -251,7 +254,7 @@ export default function BoxField({
         }
 
         // if no active field
-        if (!activeField) {
+        if (noEmptyFileds && !activeField) {
             getNeighbors();
 
             changeFields((oldArr) => {
@@ -269,7 +272,7 @@ export default function BoxField({
         }
 
         // if special item is an active element //
-        if (activeField && swap[0]?.element === 'special-1') {
+        if (noEmptyFileds && activeField && swap[0]?.element === 'special-1') {
             let blowLines = [];
 
             setSwap((actSwapObj) => {
@@ -304,7 +307,7 @@ export default function BoxField({
         }
 
         // if active field
-        if (activeField && swap[0]?.element !== 'special-1') {
+        if (noEmptyFileds && activeField && swap[0]?.element !== 'special-1') {
             setSwap((actSwapObj) => {
                 return [...actSwapObj, { fieldIndex: index, ...oldSwapObj }];
             });
