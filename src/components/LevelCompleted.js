@@ -9,17 +9,20 @@ export default function LevelCompleted({
     swapMatch,
     setMoves,
     setStartOver,
+    stedyBox,
 }) {
     return (
         <div className='levelCompleted'>
-            <button
-                onClick={() => {
-                    setMoves(0);
-                    setStartOver(false);
-                }}
-                className='play howtoplay'>
-                Start Over!
-            </button>
+            {!stedyBox.length && (
+                <button
+                    onClick={() => {
+                        setMoves(0);
+                        setStartOver(false);
+                    }}
+                    className='play howtoplay'>
+                    Start Over!
+                </button>
+            )}
             <h1>Level Completed!</h1>
             <GameBar
                 points={points}

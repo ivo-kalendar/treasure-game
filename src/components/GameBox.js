@@ -10,6 +10,7 @@ export default function GameBox({
     setLuckyMatch,
     startGame,
     setStartGame,
+    setStedyBox,
 }) {
     // Basic variables //
     const columns = [1, 2, 3, 4, 5, 6, 7];
@@ -22,6 +23,7 @@ export default function GameBox({
     const [neighbors, setNeighbors] = useState({});
     const [activeIndex, setActiveIndex] = useState(undefined);
     const [specialItems, setSpecialItems] = useState([]);
+    const [fillPoints, setFillPoints] = useState(0);
 
     //
     //
@@ -33,12 +35,28 @@ export default function GameBox({
     }, []);
 
     useEffect(() => {
+        let timeout = setTimeout(() => checkFillPoints(), 2000);
+        return () => clearTimeout(timeout);
+        // eslint-disable-next-line
+    }, [fillPoints]);
+
+    useEffect(() => {
         let timer = setTimeout(() => donePushingToMatched(), 100);
-        return () => clearTimeout(timer);
+        let timeout = setTimeout(() => setStedyBox([]), 3000);
+
+        return () => {
+            clearTimeout(timeout);
+            clearTimeout(timer);
+        };
         // eslint-disable-next-line
     }, [matchedFields]);
 
     useEffect(() => {
+        let emptyArr = fields.filter((o) => o.element === 'empty');
+        if (emptyArr.length && matchedFields.length) {
+            setStedyBox([...emptyArr, ...matchedFields]);
+        }
+
         setTimeout(() => checkMatch(), 300);
         // eslint-disable-next-line
     }, [fields, matchedFields]);
@@ -63,7 +81,7 @@ export default function GameBox({
         if (matchedFields.length && !swap.length) {
             matchOnLuck(); // match on luck
         }
-        setMatchedFields([]);
+        if (matchedFields.length) setMatchedFields([]);
     };
 
     //
@@ -71,11 +89,12 @@ export default function GameBox({
     //
     // Check for match when you start the game or after you make a match //
     const matchOnLuck = () => {
-        let eP = getPoints() ? getPoints() : 0;
-        setPoints((prev) => prev + eP);
-        // eP = eP % 2 === 0 ? eP / 2 : (eP - 1) / 2;
+        if (moves === 0) {
+            setFillPoints(0);
+        } else {
+            fillAndCountPoints();
+        }
 
-        // console.log('MATCH ON LUCK!', matchedFields);
         setLuckyMatch((prev) => {
             let { points, count } = prev;
             points = points + matchedFields.length;
@@ -89,17 +108,14 @@ export default function GameBox({
     //
     // When we have match on swap //
     const matchOnSwap = () => {
-        let eP = getPoints() ? getPoints() : 0;
-        setPoints((prev) => prev + eP);
+        fillAndCountPoints();
 
-        // console.log('MATCH ON SWAP', matchedFields);
         setSwapMatch((prev) => {
             let { points, count } = prev;
             points = points + matchedFields.length;
             count = count + 1;
             return { count, points };
         });
-        // setSwapMatch((prev) => (prev = prev.count + 1));
 
         setSwap([]);
     };
@@ -129,33 +145,69 @@ export default function GameBox({
 
         setSwap([]);
     };
-
     //
     //
     //
-    // get Points //
-    const getPoints = (finalPoints = 0) => {
-        let fPoints = matchedFields.length;
 
-        // Points for Match Three
-        let matchThreePoints = fPoints === 3 ? 5 : 0;
-        let matchDoubleThrees = fPoints === 6 ? 15 : 0;
-        let matchThrippleThrees = fPoints === 9 ? 30 : 0;
-        let mt = matchThreePoints + matchDoubleThrees + matchThrippleThrees;
+    const checkFillPoints = () => {
+        if (fillPoints !== 0 && moves !== 0) {
+            console.log('glitch', fillPoints);
+            fillAndCountPoints();
+        }
+    };
+    //
+    //
+    //
+    const fillAndCountPoints = () => {
+        for (let i = 0; i < fillPoints; i++) {
+            let speed = (i * 60) / 2;
+            setTimeout(() => setPoints((prev) => prev + 1), speed);
+        }
+        setFillPoints(0);
+    };
+    //
+    //
+    //
+    //
+    const getRealPoints = (pointsArr) => {
+        if (pointsArr.length > 1) {
+            pointsArr.forEach((a, i, arr) => {
+                if (
+                    arr[i + 1] &&
+                    arr[i + 2] &&
+                    arr[i + 1].includes(a[1]) &&
+                    arr[i + 1].includes(a[2]) &&
+                    arr[i + 2].includes(arr[i + 1][1]) &&
+                    arr[i + 2].includes(arr[i + 1][2])
+                ) {
+                    let towArrs = [...a, ...arr[i + 1], ...arr[i + 2]];
+                    let combined = [...new Set(towArrs)];
+                    pointsArr.splice(i, 3, combined);
+                }
 
-        // Points for Match Four
-        let matchFour = fPoints === 4 ? 30 : 0;
-        let matchFourAndThree = fPoints === 7 ? 45 : 0;
-        let matchDoubleFours = fPoints === 8 ? 70 : 0;
-        let mf = matchFour + matchFourAndThree + matchDoubleFours;
+                if (
+                    arr[i + 1] &&
+                    arr[i + 1].includes(a[1]) &&
+                    arr[i + 1].includes(a[2])
+                ) {
+                    let towArrs = [...a, ...arr[i + 1]];
+                    let combined = [...new Set(towArrs)];
+                    pointsArr.splice(i, 2, combined);
+                }
+            });
+        }
 
-        // Points for Match Five
-        let matchFive = fPoints === 5 ? 100 : 0;
-        let matchDoubleFives = fPoints === 10 ? 150 : 0;
-        let mm = matchFive + matchDoubleFives;
+        let comboPTS = pointsArr.length * pointsArr.length * pointsArr.length;
+        let matchPTS = 0;
+        pointsArr.map((arr) => {
+            let matchThree = arr.length === 3 ? 6 : 0;
+            let matchFour = arr.length === 4 ? 49 : 0;
+            let matchFive = arr.length === 5 ? 199 : 0;
+            matchPTS = matchPTS + matchThree + matchFour + matchFive;
+            return matchPTS;
+        });
 
-        finalPoints = fPoints + mt + mf + mm;
-        return finalPoints;
+        setFillPoints((prev) => prev + comboPTS + matchPTS);
     };
 
     //
@@ -185,12 +237,16 @@ export default function GameBox({
     // Check for fields with identical items //
     const checkMatch = () => {
         let matchThree = [];
+        let pointsArr = [];
+
         const emptyEl = fields.filter((obj) => obj.element === 'empty');
         if (fields.length && !emptyEl.length) {
-            chekDirectionMatch(matchThree, rows);
-            chekDirectionMatch(matchThree, columns);
+            chekDirectionMatch(pointsArr, matchThree, rows);
+            chekDirectionMatch(pointsArr, matchThree, columns);
         }
         if (matchThree.length) {
+            getRealPoints(pointsArr);
+
             fields.forEach((obj, i) => {
                 let newObj;
                 if (matchThree.includes(obj.field)) {
@@ -208,7 +264,7 @@ export default function GameBox({
     //
     //
     // Check every line for identical items //
-    const chekDirectionMatch = (matchThree, direction) => {
+    const chekDirectionMatch = (pointsArr, matchThree, direction) => {
         direction.forEach((l) => {
             const posibleMatchArr = fields.filter((obj) =>
                 obj.field.includes(l)
@@ -223,6 +279,7 @@ export default function GameBox({
                     obj.element === before.element &&
                     obj.element === after.element
                 ) {
+                    pointsArr.push([before.field, obj.field, after.field]);
                     matchThree.push(before.field, obj.field, after.field);
                 }
                 return matchThree;

@@ -21,12 +21,22 @@ export default function App() {
     const [startGame, setStartGame] = useState(false);
     const [gameScreen, setGameScreen] = useState('');
     const [startOver, setStartOver] = useState(true);
+    const [stedyBox, setStedyBox] = useState([]);
     // const [level, setLevel] = useState(0);
+    const movesLimit = 39;
+
+    // useEffect(() => {
+    //     // let timeout = setTimeout(() => setStedyBox([]), 2000);
+    //     // return () => clearTimeout(timeout);
+    //     console.log(stedyBox);
+    //     // eslint-disable-next-line
+    // }, [stedyBox]);
 
     useEffect(() => {
+        // console.log(stedyBox);
         restartTheGame();
         // eslint-disable-next-line
-    }, [points, moves]);
+    }, [moves]);
 
     useEffect(() => {
         getKeys();
@@ -43,8 +53,8 @@ export default function App() {
         if (!startOver) setStartOver(true);
     }, [startOver]);
 
-    const restartTheGame = () => {
-        if (moves > 39) {
+    const restartTheGame = async () => {
+        if (moves > movesLimit) {
             setGameScreen('');
         }
         if (moves === 0) {
@@ -59,10 +69,10 @@ export default function App() {
     };
 
     const getKeys = () => {
-        if (points > 200 && moves < 10) setKeys((prev) => (prev = prev + 1));
-        if (points > 500 && moves < 20) setKeys((prev) => (prev = prev + 1));
-        if (points > 750 && moves < 25) setKeys((prev) => (prev = prev + 1));
-        if (points > 1000 && moves < 30) setKeys((prev) => (prev = prev + 1));
+        if (points > 200 && moves < 8) setKeys((prev) => (prev = prev + 1));
+        if (points > 500 && moves < 10) setKeys((prev) => (prev = prev + 1));
+        if (points > 750 && moves < 15) setKeys((prev) => (prev = prev + 1));
+        if (points > 1000 && moves < 20) setKeys((prev) => (prev = prev + 1));
     };
 
     let luckyStar = 0;
@@ -70,8 +80,8 @@ export default function App() {
     const getStars = () => {
         if (luckyMatch.points > 99) luckyStar = 1;
         if (swapMatch.points > 99) movesStars = 1;
-        if (luckyMatch.points > 199) luckyStar = 3;
-        if (swapMatch.points > 199) movesStars = 3;
+        if (luckyMatch.points > 199) luckyStar = 2;
+        if (swapMatch.points > 199) movesStars = 2;
         let fp = luckyStar + movesStars;
         if (fp === 4) fp = 3;
 
@@ -85,7 +95,7 @@ export default function App() {
         <div style={appStyle} className='App'>
             {playGame ? (
                 <>
-                    {moves > 39 && (
+                    {moves > movesLimit && (
                         <LevelCompleted
                             points={points}
                             moves={moves}
@@ -95,6 +105,8 @@ export default function App() {
                             swapMatch={swapMatch}
                             setMoves={setMoves}
                             setStartOver={setStartOver}
+                            movesLimit={movesLimit}
+                            stedyBox={stedyBox}
                         />
                     )}
                     <div className={`${gameScreen}screen`}>
@@ -108,6 +120,7 @@ export default function App() {
                                 makeAMove={makeAMove}
                                 startGame={startGame}
                                 setStartGame={setStartGame}
+                                setStedyBox={setStedyBox}
                             />
                         )}
                         <GameBar
