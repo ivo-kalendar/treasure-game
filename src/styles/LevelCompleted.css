@@ -31,8 +31,14 @@
 }
 
 .levelCompleted > .game-bar > .no-need,
-.levelCompleted > .game-bar > h5 > .no-need {
+.levelCompleted > .game-bar > h5 > .no-need,
+.levelCompleted > .game-bar > h2 > .levels {
+    position: absolute;
     display: none;
+}
+
+.levelCompleted > .game-bar > h2 {
+    justify-content: space-around;
 }
 
 .levelCompleted > .howtoplay {

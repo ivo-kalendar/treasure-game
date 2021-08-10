@@ -22,15 +22,8 @@ export default function App() {
     const [gameScreen, setGameScreen] = useState('');
     const [startOver, setStartOver] = useState(true);
     const [stedyBox, setStedyBox] = useState([]);
-    // const [level, setLevel] = useState(0);
+    const [level, setLevel] = useState(1);
     const movesLimit = 39; // 39
-
-    // useEffect(() => {
-    //     // let timeout = setTimeout(() => setStedyBox([]), 2000);
-    //     // return () => clearTimeout(timeout);
-    //     console.log(stedyBox);
-    //     // eslint-disable-next-line
-    // }, [stedyBox]);
 
     useEffect(() => {
         // console.log(stedyBox);
@@ -107,6 +100,8 @@ export default function App() {
                             setStartOver={setStartOver}
                             movesLimit={movesLimit}
                             stedyBox={stedyBox}
+                            level={level}
+                            setLevel={setLevel}
                         />
                     )}
                     <div className={`${gameScreen}screen`}>
@@ -130,6 +125,7 @@ export default function App() {
                             stars={stars}
                             luckyMatch={luckyMatch}
                             swapMatch={swapMatch}
+                            level={level}
                         />
                     </div>
                 </>

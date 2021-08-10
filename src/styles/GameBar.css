@@ -1,0 +1,54 @@
+.game-bar h2 {
+    transform: scale(0.8, 1.5);
+    font-size: 4rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.points {
+    color: hsl(var(--green), 15%);
+}
+
+.game-screen > .game-bar > h2 .levels {
+    color: hsl(var(--red), 25%);
+}
+
+.game-bar {
+    padding: 0.2rem 1rem;
+    transform: scale(1) translateY(0rem);
+    background-color: hsla(var(--light-blue), 75%, 0%);
+    text-shadow: 0 0 1.5rem hsla(var(--light-blue), 20%, 0%);
+    transition: transform 100ms ease-in-out, background-color 100ms,
+        text-shadow 100ms;
+}
+
+@media (min-width: 700px) {
+    .game-screen > .game-bar:hover {
+        transform: scale(1.9) translateY(-2.5rem);
+        border-radius: 10px;
+        text-shadow: 0 0 1.5rem hsla(var(--light-blue), 20%, 100%);
+        background-color: hsla(var(--light-blue), 95%, 30%);
+        transition: transform 1s ease-in-out, background-color 5s,
+            text-shadow 2s;
+    }
+
+    .game-screen > .game-bar > h2 > .points {
+        transform: translate(0%, 0%);
+        transition: transform 100ms ease-in-out;
+    }
+
+    .game-screen > .game-bar > h2 > .levels {
+        transform: translate(0%, 0%);
+        transition: transform 100ms ease-in-out;
+    }
+
+    .game-screen > .game-bar:hover h2 > .points {
+        transform: translate(-50%, -70%);
+        transition: transform 3s ease-in-out;
+    }
+
+    .game-screen > .game-bar:hover h2 > .levels {
+        transform: translate(50%, -70%);
+        transition: transform 3s ease-in-out;
+    }
+}

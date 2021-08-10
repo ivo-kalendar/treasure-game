@@ -7,6 +7,7 @@ export default function GameBar({
     stars,
     luckyMatch,
     swapMatch,
+    level,
 }) {
     const [movesLeft, setMovesLeft] = useState(40);
 
@@ -17,9 +18,15 @@ export default function GameBar({
 
     return (
         <div className='game-bar'>
-            <h2 style={{ transform: 'scale(.8,1.5)', fontSize: '4rem' }}>
-                <span>{points}</span>
-                <span style={{ fontSize: '1rem' }}> pts.</span>
+            <h2>
+                <div className='points'>
+                    <span>{points}</span>
+                    <span style={{ fontSize: '1rem' }}> pts.</span>
+                </div>
+                <div className='levels'>
+                    <span style={{ fontSize: '1.7rem' }}>level: </span>
+                    <span>{level}</span>
+                </div>
             </h2>
             <h3 className='no-need'>Remaining Moves: {movesLeft}</h3>
             <h4>

@@ -65,6 +65,19 @@ export default function BoxField({
     // Execute Functions //
     useEffect(() => {
         let timeout = setTimeout(() => {
+            if (startGame === true && field === 'empty') {
+                console.log(field, 'empty field');
+                fillEmptyFields();
+                fillAllEmptyFields();
+                makeNewEmptyFields();
+            }
+        }, 5000);
+        return () => clearTimeout(timeout);
+        // eslint-disable-next-line
+    }, [field]);
+
+    useEffect(() => {
+        let timeout = setTimeout(() => {
             if (startGame === true) {
                 fillEmptyFields();
                 fillAllEmptyFields();
