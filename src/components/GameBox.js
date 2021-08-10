@@ -23,7 +23,8 @@ export default function GameBox({
     const [neighbors, setNeighbors] = useState({});
     const [activeIndex, setActiveIndex] = useState(undefined);
     const [specialItems, setSpecialItems] = useState([]);
-    const [fillPoints, setFillPoints] = useState(0);
+    // const [fillPoints, setFillPoints] = useState(0);
+    const [fillPoints, setFillPoints] = useState([]);
 
     //
     //
@@ -36,18 +37,17 @@ export default function GameBox({
 
     useEffect(() => {
         let timeout = setTimeout(() => checkFillPoints(), 2000);
-        return () => clearTimeout(timeout);
+        let timer = setTimeout(() => setStedyBox([]), 3000);
+        return () => {
+            clearTimeout(timeout);
+            clearTimeout(timer);
+        };
         // eslint-disable-next-line
     }, [fillPoints]);
 
     useEffect(() => {
         let timer = setTimeout(() => donePushingToMatched(), 100);
-        let timeout = setTimeout(() => setStedyBox([]), 3000);
-
-        return () => {
-            clearTimeout(timeout);
-            clearTimeout(timer);
-        };
+        return () => clearTimeout(timer);
         // eslint-disable-next-line
     }, [matchedFields]);
 
@@ -57,7 +57,7 @@ export default function GameBox({
             setStedyBox([...emptyArr, ...matchedFields]);
         }
 
-        setTimeout(() => checkMatch(), 300);
+        setTimeout(() => checkMatch(), 150);
         // eslint-disable-next-line
     }, [fields, matchedFields]);
 
@@ -90,7 +90,11 @@ export default function GameBox({
     // Check for match when you start the game or after you make a match //
     const matchOnLuck = () => {
         if (moves === 0) {
-            setFillPoints(0);
+            // setFillPoints(0);
+            setFillPoints((prevArr) => {
+                if (prevArr.length) return prevArr.shift();
+                if (!prevArr.length) return [];
+            });
         } else {
             fillAndCountPoints();
         }
@@ -150,7 +154,8 @@ export default function GameBox({
     //
 
     const checkFillPoints = () => {
-        if (fillPoints !== 0 && moves !== 0) {
+        // if (fillPoints !== 0 && moves !== 0) {
+        if (fillPoints.length && moves !== 0) {
             console.log('glitch', fillPoints);
             fillAndCountPoints();
         }
@@ -159,11 +164,18 @@ export default function GameBox({
     //
     //
     const fillAndCountPoints = () => {
-        for (let i = 0; i < fillPoints; i++) {
-            let speed = (i * 60) / 2;
-            setTimeout(() => setPoints((prev) => prev + 1), speed);
+        // for (let i = 0; i < fillPoints; i++) {
+        if (fillPoints.length) {
+            for (let i = 0; i < fillPoints[0]; i++) {
+                let speed = (i * 60) / 2;
+                setTimeout(() => setPoints((prev) => prev + 1), speed);
+            }
         }
-        setFillPoints(0);
+        // setFillPoints(0);
+        setFillPoints((prevArr) => {
+            if (prevArr.length) return prevArr.shift();
+            if (!prevArr.length) return [];
+        });
     };
     //
     //
@@ -207,7 +219,11 @@ export default function GameBox({
             return matchPTS;
         });
 
-        setFillPoints((prev) => prev + comboPTS + matchPTS);
+        // setFillPoints((prev) => prev + comboPTS + matchPTS);
+        setFillPoints((prevArr) => {
+            if (prevArr.length) return [...prevArr, comboPTS + matchPTS];
+            if (!prevArr.length) return [comboPTS + matchPTS];
+        });
     };
 
     //
@@ -319,6 +335,7 @@ export default function GameBox({
                     moves={moves}
                     startGame={startGame}
                     setStartGame={setStartGame}
+                    setFillPoints={setFillPoints}
                 />
             ))}
         </div>

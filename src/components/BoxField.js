@@ -26,6 +26,7 @@ export default function BoxField({
     moves,
     startGame,
     setStartGame,
+    setFillPoints,
 }) {
     //
     // Basic variables //
@@ -254,7 +255,7 @@ export default function BoxField({
         }
 
         // if no active field
-        if (noEmptyFileds && !activeField) {
+        if (noEmptyFileds && !activeField && swap.length !== 2) {
             getNeighbors();
 
             changeFields((oldArr) => {
@@ -297,7 +298,11 @@ export default function BoxField({
                 }
             });
             setMatchedFields((oldArr) => [...oldArr, ...blowLines]);
-            setPoints((prev) => prev + 85);
+            setFillPoints((prevArr) => {
+                if (prevArr.length) return [...prevArr, 85];
+                if (!prevArr.length) return [85];
+            });
+            // setPoints((prev) => prev + 85);
 
             setTimeout(() => {
                 setMatchedFields([]);
@@ -320,11 +325,8 @@ export default function BoxField({
                 return [...oldArr];
             });
 
-            setTimeout(() => {
-                setMatchedFields([]);
-            }, 1000);
+            setTimeout(() => setMatchedFields([]), 500);
 
-            // console.log(matchedFields);
             setActiveIndex(undefined);
         }
     };

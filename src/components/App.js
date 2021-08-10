@@ -23,7 +23,7 @@ export default function App() {
     const [startOver, setStartOver] = useState(true);
     const [stedyBox, setStedyBox] = useState([]);
     // const [level, setLevel] = useState(0);
-    const movesLimit = 39;
+    const movesLimit = 39; // 39
 
     // useEffect(() => {
     //     // let timeout = setTimeout(() => setStedyBox([]), 2000);
