@@ -11,6 +11,7 @@
     box-shadow: 0 0 10rem;
     text-shadow: -0.2rem -0.2rem 2rem;
     margin-top: 20rem;
+    cursor: pointer;
 }
 
 .play:hover {

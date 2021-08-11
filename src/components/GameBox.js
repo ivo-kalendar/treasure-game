@@ -10,6 +10,7 @@ export default function GameBox({
     setLuckyMatch,
     startGame,
     setStartGame,
+    stedyBox,
     setStedyBox,
 }) {
     // Basic variables //
@@ -50,6 +51,18 @@ export default function GameBox({
         return () => clearTimeout(timer);
         // eslint-disable-next-line
     }, [matchedFields]);
+
+    useEffect(() => {
+        setInterval(() => {
+            let emptyArr = fields.filter((o) => o.element === 'empty');
+            if (emptyArr.length) {
+                setStedyBox([...emptyArr]);
+            }
+            setTimeout(() => checkMatch(), 150);
+        }, 10000);
+
+        // eslint-disable-next-line
+    }, []);
 
     useEffect(() => {
         let emptyArr = fields.filter((o) => o.element === 'empty');
@@ -336,6 +349,7 @@ export default function GameBox({
                     startGame={startGame}
                     setStartGame={setStartGame}
                     setFillPoints={setFillPoints}
+                    stedyBox={stedyBox}
                 />
             ))}
         </div>

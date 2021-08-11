@@ -43,10 +43,21 @@
 
 .levelCompleted > .howtoplay {
     z-index: 3;
-    margin: 7rem 2rem auto auto;
+    position: absolute;
+    bottom: 0.2rem;
+    right: 0.2rem;
 }
 
-@media (max-width: 800px) {
+.levelCompleted .pc,
+.levelCompleted .phone {
+    display: inline-block;
+}
+
+.levelCompleted .no-need {
+    display: none;
+}
+
+@media (max-width: 700px) {
     .levelCompleted {
         padding: 8rem 2rem;
         width: 100%;
@@ -55,6 +66,14 @@
     }
 
     .levelCompleted > .howtoplay {
-        margin: 50vh auto 1rem auto;
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .levelCompleted > .game-bar h2 {
+        margin-left: 2.5rem;
+        padding-bottom: 2rem;
+        font-size: 3.5rem;
     }
 }

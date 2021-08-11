@@ -1,8 +1,14 @@
 .game-bar h2 {
     transform: scale(0.8, 1.5);
-    font-size: 4rem;
+    font-size: 2rem;
+    padding: 0.5rem 0.3rem 0.7rem 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    margin-left: -2.5rem;
+}
+
+.game-bar div {
+    padding-right: 2rem;
 }
 
 .points {
@@ -22,7 +28,34 @@
         text-shadow 100ms;
 }
 
+.game-bar .pc {
+    display: none;
+}
+
+.game-bar .phone {
+    display: inline-block;
+}
+
 @media (min-width: 700px) {
+    .game-bar .pc {
+        display: inline-block;
+    }
+
+    .game-bar .phone {
+        display: none;
+    }
+
+    .game-bar > h2 {
+        font-size: 4rem;
+        justify-content: space-between;
+        padding: 0 0 0.5rem 0;
+        margin-left: 0;
+    }
+
+    .game-bar div {
+        padding-right: 0;
+    }
+
     .game-screen > .game-bar:hover {
         transform: scale(1.9) translateY(-2.5rem);
         border-radius: 10px;

@@ -6,6 +6,7 @@ import GameBox from './GameBox';
 import GameBar from './GmeBar';
 import HowToPlay from './HowToPlay';
 import LevelCompleted from './LevelCompleted';
+import InfoBoard from './InfoBoard';
 
 export default function App() {
     //
@@ -23,10 +24,10 @@ export default function App() {
     const [startOver, setStartOver] = useState(true);
     const [stedyBox, setStedyBox] = useState([]);
     const [level, setLevel] = useState(1);
+    const [showInfoBoard, setShowInfoBoard] = useState(false);
     const movesLimit = 39; // 39
 
     useEffect(() => {
-        // console.log(stedyBox);
         restartTheGame();
         // eslint-disable-next-line
     }, [moves]);
@@ -86,6 +87,10 @@ export default function App() {
 
     return (
         <div style={appStyle} className='App'>
+            <InfoBoard
+                showInfoBoard={showInfoBoard}
+                setShowInfoBoard={setShowInfoBoard}
+            />
             {playGame ? (
                 <>
                     {moves > movesLimit && (
@@ -102,6 +107,7 @@ export default function App() {
                             stedyBox={stedyBox}
                             level={level}
                             setLevel={setLevel}
+                            setShowInfoBoard={setShowInfoBoard}
                         />
                     )}
                     <div className={`${gameScreen}screen`}>
@@ -115,6 +121,7 @@ export default function App() {
                                 makeAMove={makeAMove}
                                 startGame={startGame}
                                 setStartGame={setStartGame}
+                                stedyBox={stedyBox}
                                 setStedyBox={setStedyBox}
                             />
                         )}
@@ -128,12 +135,30 @@ export default function App() {
                             level={level}
                         />
                     </div>
+                    {moves < movesLimit && (
+                        <button
+                            onClick={() => {
+                                setMoves(0);
+                                setPoints(0);
+                                setKeys(0);
+                                setStars(0);
+                                setLuckyMatch({ count: 0, points: 0 });
+                                setSwapMatch({ count: 0, points: 0 });
+                                setStartOver(false);
+                            }}
+                            className='play howtoplay restart'>
+                            Restart
+                        </button>
+                    )}
                 </>
             ) : (
                 <>
-                    <HowToPlay />
+                    <HowToPlay setShowInfoBoard={setShowInfoBoard} />
                     <Logo />
-                    <Play setPlayGame={setPlayGame} />
+                    <Play
+                        setPlayGame={setPlayGame}
+                        setShowInfoBoard={setShowInfoBoard}
+                    />
                 </>
             )}
         </div>

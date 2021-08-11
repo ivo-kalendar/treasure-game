@@ -1,0 +1,70 @@
+.info-board {
+    z-index: 99;
+    background-color: hsla(var(--pink), 20%, 20%);
+    transform: scale(1);
+    cursor: pointer;
+    animation: changeCursor 1s infinite;
+}
+
+.info {
+    z-index: -99;
+    background-color: hsla(var(--pink), 20%, 0%);
+    transform: scale(0.01);
+}
+
+.info-board,
+.info {
+    position: absolute;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: z-index 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.info-board > div {
+    color: hsla(var(--pink), 90%, 100%);
+    background-color: hsla(var(--pink), 20%, 95%);
+    box-shadow: 0 0 0.5rem #000, 0 0 1rem #000, 0 0 5rem #000;
+}
+
+.info > div {
+    color: hsla(var(--pink), 90%, 0%);
+    background-color: hsla(var(--pink), 20%, 0%);
+    box-shadow: 0 0 0 #000, 0 0 0 #000, 0 0 0 #000;
+}
+
+.info-board > div,
+.info > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3rem;
+    border-radius: 1rem;
+    transition: all 300ms ease-in-out;
+}
+
+.info-board > div > h1,
+.info > div > h1 {
+    font-size: 2.2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid;
+}
+
+.info-board p,
+.info p {
+    font-size: 1.3rem;
+}
+
+@media (max-width: 700px) {
+    .info-board,
+    .info {
+        padding: 1rem;
+        justify-content: center;
+    }
+
+    .info-board > div,
+    .info > div {
+        padding: 2rem 1rem;
+    }
+}

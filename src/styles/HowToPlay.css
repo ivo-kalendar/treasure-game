@@ -8,3 +8,8 @@
 .howtoplay:active {
     font-size: 0.98rem;
 }
+
+.restart {
+    bottom: 1rem;
+    right: 1rem;
+}

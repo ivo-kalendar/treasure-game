@@ -24,20 +24,22 @@ export default function GameBar({
                     <span style={{ fontSize: '1rem' }}> pts.</span>
                 </div>
                 <div className='levels'>
-                    <span style={{ fontSize: '1.7rem' }}>level: </span>
+                    <span style={{ fontSize: '1rem' }}>level: </span>
                     <span>{level}</span>
                 </div>
             </h2>
-            <h3 className='no-need'>Remaining Moves: {movesLeft}</h3>
+            <h3 className='no-need pc'>Remaining Moves: {movesLeft}</h3>
             <h4>
-                Keys: {keys}. Stars: {stars}
+                Keys: {keys}. Stars: {stars}{' '}
+                <span className='no-need phone'>Moves: {movesLeft}</span>
             </h4>
             <h5>
                 <span className='no-need'>
-                    Lucky Match: {luckyMatch.count}. Moves: {swapMatch.count}.
+                    Lucky Match: {luckyMatch.count}.{' '}
+                    <span className='pc'>Moves: {swapMatch.count}.</span>
                 </span>{' '}
-                Lucky Points: {luckyMatch.points}. Move Points:{' '}
-                {swapMatch.points}.
+                Lucky Points: {luckyMatch.points}.{' '}
+                <span className='pc'>Move Points: {swapMatch.points}</span>
             </h5>
         </div>
     );

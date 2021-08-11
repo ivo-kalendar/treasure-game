@@ -11,3 +11,12 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes changeCursor {
+    from {
+        cursor: pointer;
+    }
+    to {
+        cursor: help;
+    }
+}

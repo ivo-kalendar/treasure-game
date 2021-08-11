@@ -27,6 +27,7 @@ export default function BoxField({
     startGame,
     setStartGame,
     setFillPoints,
+    stedyBox,
 }) {
     //
     // Basic variables //
@@ -65,8 +66,9 @@ export default function BoxField({
     // Execute Functions //
     useEffect(() => {
         let timeout = setTimeout(() => {
-            if (startGame === true && field === 'empty') {
-                console.log(field, 'empty field');
+            // fields.filter((o) => o.element === 'empty').length
+            // if (startGame === true && element === 'empty') {
+            if (startGame === true && stedyBox.length) {
                 fillEmptyFields();
                 fillAllEmptyFields();
                 makeNewEmptyFields();
@@ -74,7 +76,7 @@ export default function BoxField({
         }, 5000);
         return () => clearTimeout(timeout);
         // eslint-disable-next-line
-    }, [field]);
+    }, [stedyBox]);
 
     useEffect(() => {
         let timeout = setTimeout(() => {

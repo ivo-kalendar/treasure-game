@@ -1,6 +1,7 @@
-export default function HowToPlay() {
+export default function HowToPlay({ setShowInfoBoard }) {
     return (
         <button
+            onClick={() => setShowInfoBoard(true)}
             style={{
                 bottom: window.innerHeight / 1.1,
             }}

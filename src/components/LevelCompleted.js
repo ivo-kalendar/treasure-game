@@ -13,11 +13,12 @@ export default function LevelCompleted({
     stedyBox,
     level,
     setLevel,
+    setShowInfoBoard,
 }) {
     const [finished, setFinished] = useState('Done!');
 
     useEffect(() => {
-        let timeout = setTimeout(() => passLevels(), 2000);
+        let timeout = setTimeout(() => passLevels(), 3000);
         return () => clearTimeout(timeout);
         // eslint-disable-next-line
     }, [points, keys, stars]);
@@ -29,7 +30,6 @@ export default function LevelCompleted({
         if (level === 1) levelOne();
         if (level === 2) levelTwo();
         if (level === 3) levelThree();
-        console.log(points, stars, keys);
     };
 
     //
@@ -60,7 +60,7 @@ export default function LevelCompleted({
     //
     const levelThree = () => {
         // if (luckyMatch.points > 10 && swapMatch.points > 10) {
-        if (keys > 14 || stars > 2 || points > 1999) {
+        if (keys > 14 || stars > 3 || points > 1999) {
             setLevel(1);
             setFinished('You Won The Treasure!');
         } else {
@@ -68,15 +68,16 @@ export default function LevelCompleted({
         }
     };
 
+    const clicked = () => {
+        setMoves(0);
+        setStartOver(false);
+        if (finished !== 'Game Over!') setShowInfoBoard(true);
+    };
+
     return (
         <div className='levelCompleted'>
             {!stedyBox.length && finished !== 'Done!' && (
-                <button
-                    onClick={() => {
-                        setMoves(0);
-                        setStartOver(false);
-                    }}
-                    className='play howtoplay'>
+                <button onClick={clicked} className='play howtoplay'>
                     {finished === 'Game Over!'
                         ? 'Repeat Level!'
                         : finished === 'You Won The Treasure!'
