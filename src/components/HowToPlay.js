@@ -1,12 +1,15 @@
-export default function HowToPlay({ setShowInfoBoard }) {
+export default function HowToPlay({ language, setShowInfoBoard, setTxtIndex }) {
     return (
         <button
-            onClick={() => setShowInfoBoard(true)}
+            onClick={() => {
+                setShowInfoBoard(true);
+                setTxtIndex(0);
+            }}
             style={{
                 bottom: window.innerHeight / 1.1,
             }}
             className='play howtoplay'>
-            Како Се Игра?
+            {language === 'en' ? 'How To Play?' : 'Како Се Игра?'}
         </button>
     );
 }

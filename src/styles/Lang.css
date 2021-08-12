@@ -1,0 +1,14 @@
+.lang {
+    position: absolute;
+    left: 1rem;
+    font-weight: 900;
+    font-size: 1rem;
+}
+
+.lang:active {
+    font-size: 0.98rem;
+}
+
+.lang > .default-lang {
+    color: hsl(var(--pink), 40%);
+}

@@ -24,7 +24,6 @@ export default function GameBox({
     const [neighbors, setNeighbors] = useState({});
     const [activeIndex, setActiveIndex] = useState(undefined);
     const [specialItems, setSpecialItems] = useState([]);
-    // const [fillPoints, setFillPoints] = useState(0);
     const [fillPoints, setFillPoints] = useState([]);
 
     //
@@ -53,18 +52,6 @@ export default function GameBox({
     }, [matchedFields]);
 
     useEffect(() => {
-        setInterval(() => {
-            let emptyArr = fields.filter((o) => o.element === 'empty');
-            if (emptyArr.length) {
-                setStedyBox([...emptyArr]);
-            }
-            setTimeout(() => checkMatch(), 150);
-        }, 10000);
-
-        // eslint-disable-next-line
-    }, []);
-
-    useEffect(() => {
         let emptyArr = fields.filter((o) => o.element === 'empty');
         if (emptyArr.length && matchedFields.length) {
             setStedyBox([...emptyArr, ...matchedFields]);
@@ -76,8 +63,7 @@ export default function GameBox({
 
     //
     //
-    //
-    // After pushing object to matched is done
+    // After pushing object to matched is done //
     const donePushingToMatched = () => {
         if (swap.length === 2 && matchedFields.length) {
             makeAMove();
@@ -97,7 +83,6 @@ export default function GameBox({
         if (matchedFields.length) setMatchedFields([]);
     };
 
-    //
     //
     //
     // Check for match when you start the game or after you make a match //
@@ -122,7 +107,6 @@ export default function GameBox({
 
     //
     //
-    //
     // When we have match on swap //
     const matchOnSwap = () => {
         fillAndCountPoints();
@@ -137,7 +121,6 @@ export default function GameBox({
         setSwap([]);
     };
 
-    //
     //
     //
     // On Swap if no match swap back //
@@ -162,38 +145,36 @@ export default function GameBox({
 
         setSwap([]);
     };
-    //
-    //
-    //
 
+    //
+    //
+    //  Check if fillpoints array has length //
     const checkFillPoints = () => {
-        // if (fillPoints !== 0 && moves !== 0) {
         if (fillPoints.length && moves !== 0) {
             console.log('glitch', fillPoints);
             fillAndCountPoints();
         }
     };
+
     //
     //
-    //
+    //  Points Counter //
     const fillAndCountPoints = () => {
-        // for (let i = 0; i < fillPoints; i++) {
         if (fillPoints.length) {
             for (let i = 0; i < fillPoints[0]; i++) {
                 let speed = (i * 60) / 2;
                 setTimeout(() => setPoints((prev) => prev + 1), speed);
             }
         }
-        // setFillPoints(0);
         setFillPoints((prevArr) => {
             if (prevArr.length) return prevArr.shift();
             if (!prevArr.length) return [];
         });
     };
+
     //
     //
-    //
-    //
+    // Get Points and send to counter //
     const getRealPoints = (pointsArr) => {
         if (pointsArr.length > 1) {
             pointsArr.forEach((a, i, arr) => {
@@ -232,14 +213,12 @@ export default function GameBox({
             return matchPTS;
         });
 
-        // setFillPoints((prev) => prev + comboPTS + matchPTS);
         setFillPoints((prevArr) => {
             if (prevArr.length) return [...prevArr, comboPTS + matchPTS];
             if (!prevArr.length) return [comboPTS + matchPTS];
         });
     };
 
-    //
     //
     //
     // Create Fields with no Items //
@@ -260,7 +239,6 @@ export default function GameBox({
         }
     };
 
-    //
     //
     //
     // Check for fields with identical items //
@@ -342,14 +320,12 @@ export default function GameBox({
                     swap={swap}
                     setSwap={setSwap}
                     points={points}
-                    setPoints={setPoints}
                     specialItems={specialItems}
                     setSpecialItems={setSpecialItems}
                     moves={moves}
                     startGame={startGame}
                     setStartGame={setStartGame}
                     setFillPoints={setFillPoints}
-                    stedyBox={stedyBox}
                 />
             ))}
         </div>

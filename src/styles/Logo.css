@@ -10,3 +10,14 @@
     height: auto;
     margin-left: -1.8rem;
 }
+
+@media (max-width: 700px) {
+    .logo {
+        top: 0;
+    }
+
+    .logo > img {
+        width: 100%;
+        margin-left: 0;
+    }
+}

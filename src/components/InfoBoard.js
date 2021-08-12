@@ -1,28 +1,36 @@
 import { useState, useEffect } from 'react';
+import { en, mk } from './info';
 
-export default function InfoBoard({ showInfoBoard, setShowInfoBoard }) {
+export default function InfoBoard({
+    txtIndex,
+    language,
+    showInfoBoard,
+    setShowInfoBoard,
+}) {
+    // State variables //
     const [infoText, setInfoText] = useState({ title: '', text: '' });
+    const [jsonText, setJsonText] = useState(en);
+    // Basic variables //
+    const { title, text } = infoText;
 
+    //
+    //
+    // Execute Functions //
     useEffect(() => {
         let timeout = setTimeout(() => {
             if (!showInfoBoard) setInfoText({ title: '', text: '' });
         }, 1000);
-        mountInfoBoard();
+        if (showInfoBoard) setInfoText(jsonText[txtIndex]);
 
         return () => clearTimeout(timeout);
         // eslint-disable-next-line
     }, [showInfoBoard]);
 
-    const { title, text } = infoText;
-
-    const mountInfoBoard = () => {
-        if (showInfoBoard) {
-            setInfoText({
-                title: 'Info Board',
-                text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?',
-            });
-        }
-    };
+    useEffect(() => {
+        if (language === 'en') setJsonText(en);
+        if (language === 'mk') setJsonText(mk);
+        // eslint-disable-next-line
+    }, [language]);
 
     return (
         <div

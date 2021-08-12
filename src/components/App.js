@@ -4,14 +4,15 @@ import Logo from './Logo';
 import Play from './Play';
 import GameBox from './GameBox';
 import GameBar from './GmeBar';
+import Lang from './Lang';
 import HowToPlay from './HowToPlay';
 import LevelCompleted from './LevelCompleted';
 import InfoBoard from './InfoBoard';
 
 export default function App() {
-    //
-    //
-    //
+    // Basic variables //
+    const movesLimit = 39; // 39
+    // State variables //
     const [playGame, setPlayGame] = useState(false);
     const [points, setPoints] = useState(0);
     const [moves, setMoves] = useState(0);
@@ -25,8 +26,12 @@ export default function App() {
     const [stedyBox, setStedyBox] = useState([]);
     const [level, setLevel] = useState(1);
     const [showInfoBoard, setShowInfoBoard] = useState(false);
-    const movesLimit = 39; // 39
+    const [language, setLanguage] = useState('en');
+    const [txtIndex, setTxtIndex] = useState(0);
 
+    //
+    //
+    // Execute Functions //
     useEffect(() => {
         restartTheGame();
         // eslint-disable-next-line
@@ -47,6 +52,9 @@ export default function App() {
         if (!startOver) setStartOver(true);
     }, [startOver]);
 
+    //
+    //
+    // Execute functions when restart the Game //
     const restartTheGame = async () => {
         if (moves > movesLimit) {
             setGameScreen('');
@@ -58,10 +66,12 @@ export default function App() {
             setStars(0);
             setLuckyMatch({ count: 0, points: 0 });
             setSwapMatch({ count: 0, points: 0 });
-            // setStartOver(true);
         }
     };
 
+    //
+    //
+    // Colect Keys //
     const getKeys = () => {
         if (points > 200 && moves < 8) setKeys((prev) => (prev = prev + 1));
         if (points > 500 && moves < 10) setKeys((prev) => (prev = prev + 1));
@@ -69,6 +79,9 @@ export default function App() {
         if (points > 1000 && moves < 20) setKeys((prev) => (prev = prev + 1));
     };
 
+    //
+    //
+    // Colect Stars //
     let luckyStar = 0;
     let movesStars = 0;
     const getStars = () => {
@@ -82,18 +95,24 @@ export default function App() {
         setStars(fp);
     };
 
+    //
+    // Size Style App //
     const appStyle = { width: window.innerWidth, height: window.innerHeight };
+    // Count Moves //
     const makeAMove = () => setMoves((prev) => prev + 1);
 
     return (
         <div style={appStyle} className='App'>
             <InfoBoard
+                txtIndex={txtIndex}
+                language={language}
                 showInfoBoard={showInfoBoard}
                 setShowInfoBoard={setShowInfoBoard}
             />
             {playGame ? (
                 <>
                     {moves > movesLimit && (
+                        // Show LevelCompleted component if level is Done //
                         <LevelCompleted
                             points={points}
                             moves={moves}
@@ -108,6 +127,9 @@ export default function App() {
                             level={level}
                             setLevel={setLevel}
                             setShowInfoBoard={setShowInfoBoard}
+                            setPlayGame={setPlayGame}
+                            setTxtIndex={setTxtIndex}
+                            language={language}
                         />
                     )}
                     <div className={`${gameScreen}screen`}>
@@ -133,9 +155,11 @@ export default function App() {
                             luckyMatch={luckyMatch}
                             swapMatch={swapMatch}
                             level={level}
+                            language={language}
                         />
                     </div>
                     {moves < movesLimit && (
+                        // Hide Button if Level is Done //
                         <button
                             onClick={() => {
                                 setMoves(0);
@@ -147,15 +171,24 @@ export default function App() {
                                 setStartOver(false);
                             }}
                             className='play howtoplay restart'>
-                            Restart
+                            {language === 'en' ? 'Restart' : 'Ресет'}
                         </button>
                     )}
                 </>
             ) : (
+                // Main Screen //
                 <>
-                    <HowToPlay setShowInfoBoard={setShowInfoBoard} />
+                    <Lang language={language} setLanguage={setLanguage} />
+                    <HowToPlay
+                        setTxtIndex={setTxtIndex}
+                        language={language}
+                        setShowInfoBoard={setShowInfoBoard}
+                    />
                     <Logo />
                     <Play
+                        level={level}
+                        setTxtIndex={setTxtIndex}
+                        language={language}
                         setPlayGame={setPlayGame}
                         setShowInfoBoard={setShowInfoBoard}
                     />

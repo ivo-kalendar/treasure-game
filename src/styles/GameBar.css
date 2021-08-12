@@ -11,6 +11,10 @@
     padding-right: 2rem;
 }
 
+.game-bar .small-letters {
+    font-size: 0.7rem;
+}
+
 .points {
     color: hsl(var(--green), 15%);
 }
@@ -20,7 +24,7 @@
 }
 
 .game-bar {
-    padding: 0.2rem 1rem;
+    padding: 0.5rem;
     transform: scale(1) translateY(0rem);
     background-color: hsla(var(--light-blue), 75%, 0%);
     text-shadow: 0 0 1.5rem hsla(var(--light-blue), 20%, 0%);

@@ -8,9 +8,14 @@ export default function GameBar({
     luckyMatch,
     swapMatch,
     level,
+    language,
 }) {
+    // State variables //
     const [movesLeft, setMovesLeft] = useState(40);
 
+    //
+    //
+    // Execute Functions //
     useEffect(() => {
         setMovesLeft(() => 40 - moves);
         // eslint-disable-next-line
@@ -21,25 +26,63 @@ export default function GameBar({
             <h2>
                 <div className='points'>
                     <span>{points}</span>
-                    <span style={{ fontSize: '1rem' }}> pts.</span>
+                    <span style={{ fontSize: '1rem' }}>
+                        {language === 'en' ? ' pts.' : ' пое.'}
+                    </span>
                 </div>
                 <div className='levels'>
-                    <span style={{ fontSize: '1rem' }}>level: </span>
+                    <span style={{ fontSize: '1rem' }}>
+                        {language === 'en' ? 'level: ' : 'лев: '}
+                    </span>
                     <span>{level}</span>
                 </div>
             </h2>
-            <h3 className='no-need pc'>Remaining Moves: {movesLeft}</h3>
+            <h3 className='no-need pc'>
+                {language === 'en' ? 'Remaining Moves: ' : 'Преост. Потези: '}
+                {movesLeft}
+            </h3>
             <h4>
-                Keys: {keys}. Stars: {stars}{' '}
-                <span className='no-need phone'>Moves: {movesLeft}</span>
+                {language === 'en' ? 'Keys: ' : 'Клуч: '}
+                {keys}.{language === 'en' ? ' Stars: ' : ' Звезди: '}
+                {stars}{' '}
+                <span className='no-need phone'>
+                    {language === 'en' ? 'Moves: ' : 'Потег: '}
+                    {movesLeft}
+                </span>
             </h4>
             <h5>
                 <span className='no-need'>
-                    Lucky Match: {luckyMatch.count}.{' '}
-                    <span className='pc'>Moves: {swapMatch.count}.</span>
+                    <span className='pc'>
+                        {language === 'en' ? (
+                            'Lucky Match: '
+                        ) : (
+                            <span className='small-letters'>
+                                Спарка на Среќа:{' '}
+                            </span>
+                        )}
+                        {luckyMatch.count}.{' '}
+                    </span>
+                    <span className='pc'>
+                        {language === 'en' ? (
+                            'Moves: '
+                        ) : (
+                            <span className='small-letters'>Потег: </span>
+                        )}
+                        {swapMatch.count}.
+                    </span>
                 </span>{' '}
-                Lucky Points: {luckyMatch.points}.{' '}
-                <span className='pc'>Move Points: {swapMatch.points}</span>
+                {language === 'en' ? (
+                    'Lucky Points: '
+                ) : (
+                    <span className='small-letters'>Среќни Поени: </span>
+                )}
+                {luckyMatch.points}.{' '}
+                {language === 'en' ? (
+                    'Move Points: '
+                ) : (
+                    <span className='small-letters'>Поени од Потег: </span>
+                )}
+                {swapMatch.points}
             </h5>
         </div>
     );

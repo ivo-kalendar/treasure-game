@@ -20,14 +20,12 @@ export default function BoxField({
     swap,
     setSwap,
     points,
-    setPoints,
     specialItems,
     setSpecialItems,
     moves,
     startGame,
     setStartGame,
     setFillPoints,
-    stedyBox,
 }) {
     //
     // Basic variables //
@@ -35,7 +33,8 @@ export default function BoxField({
     const fieldUp = rows[letterUp] && rows[letterUp] + field[1];
     const indexUp = fields.findIndex((el) => el.field === fieldUp);
     const upperItem = fields[indexUp]?.element;
-
+    //
+    //
     let randomItem = `item-${Math.ceil(Math.random() * numberOfItems)}`;
     const lastItem = field.includes(rows[rows.length - 1]);
     let element = upperItem ? upperItem : randomItem;
@@ -46,8 +45,10 @@ export default function BoxField({
     let r3 = specialItems.length === 2 && points > 900;
     let r4 = specialItems.length === 3 && points > 1200 && moves < 30;
     let r5 = specialItems.length === 4 && points > 1500 && moves < 35;
-    // State variables //
 
+    //
+    //
+    // Execute Functions //
     useEffect(() => {
         checkForSpecialItem();
         // eslint-disable-next-line
@@ -60,23 +61,6 @@ export default function BoxField({
         return () => (timeout = setTimeout(() => setStartGame(true), 1500));
         // eslint-disable-next-line
     }, [fields]);
-
-    //
-    //
-    // Execute Functions //
-    useEffect(() => {
-        let timeout = setTimeout(() => {
-            // fields.filter((o) => o.element === 'empty').length
-            // if (startGame === true && element === 'empty') {
-            if (startGame === true && stedyBox.length) {
-                fillEmptyFields();
-                fillAllEmptyFields();
-                makeNewEmptyFields();
-            }
-        }, 5000);
-        return () => clearTimeout(timeout);
-        // eslint-disable-next-line
-    }, [stedyBox]);
 
     useEffect(() => {
         let timeout = setTimeout(() => {
@@ -92,7 +76,7 @@ export default function BoxField({
 
     //
     //
-    //
+    // Fill Fields on Component Mount //
     const onInitStartGame = () => {
         if (startGame === 'init') {
             fillEmptyFields();
@@ -103,14 +87,8 @@ export default function BoxField({
 
     //
     //
-    //
+    // Check for special Items //
     const checkForSpecialItem = () => {
-        // if (specialItems.includes('special-1')) {
-        //     setSpecialItems((oldArr) => {
-        //         let newArr = oldArr.filter((e) => e !== 'special-1');
-        //         return [...newArr];
-        //     });
-        // }
         if (item === 'empty' && !specialItems.includes('special-1')) {
             if (r1) setSpecialItems(['special-1']);
             if (r2) setSpecialItems((oldArr) => ['special-1', ...oldArr]);
@@ -122,7 +100,7 @@ export default function BoxField({
 
     //
     //
-    //
+    // Fill upper fields with items //
     const fillEmptyFields = () => {
         if (
             specialItems.length &&
@@ -151,6 +129,9 @@ export default function BoxField({
         }
     };
 
+    //
+    //
+    // Fill all fields with items //
     const fillAllEmptyFields = () => {
         if (item === 'empty' && !lastItem) {
             let newObj = { field, element, active };
@@ -165,6 +146,9 @@ export default function BoxField({
         }
     };
 
+    //
+    //
+    // If Field is empty get item from upper field //
     const makeNewEmptyFields = () => {
         if (item === 'empty' && !lastItem) {
             changeFields((oldArr) => {
@@ -175,6 +159,9 @@ export default function BoxField({
         }
     };
 
+    //
+    //
+    // Get info from neighbor fields //
     const getNeighbors = () => {
         const l = field[0];
         const n = Number(field[1]);
@@ -185,8 +172,6 @@ export default function BoxField({
         const left = `${l}${n - 1}`;
         const right = `${l}${n + 1}`;
 
-        //
-        //
         // in the middle...
         if (
             l !== rows[0] &&
@@ -197,8 +182,6 @@ export default function BoxField({
             setNeighbors({ down, up, left, right });
         }
 
-        //
-        //
         // in the corners...
         if (l === rows[0] && n === 1) {
             // no left or down
@@ -220,8 +203,6 @@ export default function BoxField({
             setNeighbors({ up, left });
         }
 
-        //
-        //
         // on the sides...
         if (l === rows[0] && n !== 1 && n !== columns) {
             // no down
@@ -241,6 +222,9 @@ export default function BoxField({
         }
     };
 
+    //
+    //
+    // Set Active field or swap if active on Click //
     const clicked = () => {
         let activeField = false;
         let noEmptyFileds = !fields.filter((o) => o.element === 'empty').length;
@@ -287,7 +271,7 @@ export default function BoxField({
             setActiveIndex(index);
         }
 
-        // if special item is an active element //
+        // if special item is an active element
         if (noEmptyFileds && activeField && swap[0]?.element === 'special-1') {
             let blowLines = [];
 
@@ -317,7 +301,6 @@ export default function BoxField({
                 if (prevArr.length) return [...prevArr, 85];
                 if (!prevArr.length) return [85];
             });
-            // setPoints((prev) => prev + 85);
 
             setTimeout(() => {
                 setMatchedFields([]);

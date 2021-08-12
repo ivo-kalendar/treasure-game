@@ -1,12 +1,19 @@
-export default function Play({ setPlayGame, setShowInfoBoard }) {
+export default function Play({
+    level,
+    language,
+    setPlayGame,
+    setShowInfoBoard,
+    setTxtIndex,
+}) {
     return (
         <button
             className='play'
             onClick={() => {
                 setPlayGame(true);
                 setShowInfoBoard(true);
+                setTxtIndex(level);
             }}>
-            PLAY
+            {language === 'en' ? 'PLAY' : 'ИГРАЈ'}
         </button>
     );
 }
