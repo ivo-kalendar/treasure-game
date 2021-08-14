@@ -11,7 +11,7 @@ import InfoBoard from './InfoBoard';
 
 export default function App() {
     // Basic variables //
-    const movesLimit = 39; // 39
+    const movesLimit = 3; // 39
     // State variables //
     const [playGame, setPlayGame] = useState(false);
     const [points, setPoints] = useState(0);
@@ -73,10 +73,10 @@ export default function App() {
     //
     // Colect Keys //
     const getKeys = () => {
-        if (points > 200 && moves < 8) setKeys((prev) => (prev = prev + 1));
-        if (points > 500 && moves < 10) setKeys((prev) => (prev = prev + 1));
-        if (points > 750 && moves < 15) setKeys((prev) => (prev = prev + 1));
-        if (points > 1000 && moves < 20) setKeys((prev) => (prev = prev + 1));
+        if (points > 199 && moves < 9) setKeys((prev) => (prev = prev + 1));
+        if (points > 499 && moves < 14) setKeys((prev) => (prev = prev + 1));
+        if (points > 849 && moves < 19) setKeys((prev) => (prev = prev + 1));
+        if (points > 1199 && moves < 24) setKeys((prev) => (prev = prev + 1));
     };
 
     //

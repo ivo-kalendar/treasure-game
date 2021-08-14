@@ -45,8 +45,8 @@ export default function LevelCompleted({
     //
     // Level One //
     const levelOne = () => {
-        // if (luckyMatch.points > 10) {
-        if (points > 1199) {
+        if (luckyMatch.points > 10) {
+            // if (points > 1199) {
             setLevel(2);
             setFinished(
                 language === 'en' ? 'Level 1 Completed!' : '1во Ниво Завршено!'
@@ -60,11 +60,11 @@ export default function LevelCompleted({
     //
     // Level Two //
     const levelTwo = () => {
-        // if (swapMatch.points > 10) {
-        if (stars > 1 && points > 1499) {
+        if (swapMatch.points > 10) {
+            // if (stars > 1 && points > 1499) {
             setLevel(3);
             setFinished(
-                language === 'en' ? 'Level 2 Completed!' : '2во Ниво Завршено!'
+                language === 'en' ? 'Level 2 Completed!' : '2ро Ниво Завршено!'
             );
         } else {
             setFinished(language === 'en' ? 'Game Over!' : 'Играта Заврши!');
@@ -75,8 +75,8 @@ export default function LevelCompleted({
     //
     // Level Three //
     const levelThree = () => {
-        // if (luckyMatch.points > 10 && swapMatch.points > 10) {
-        if (keys > 14 || stars > 3 || points > 1999) {
+        if (luckyMatch.points > 10 && swapMatch.points > 10) {
+            // if (keys > 14 || stars > 2 || points > 1999) {
             setLevel(1);
             setFinished(
                 language === 'en'

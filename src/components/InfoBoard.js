@@ -11,7 +11,8 @@ export default function InfoBoard({
     const [infoText, setInfoText] = useState({ title: '', text: '' });
     const [jsonText, setJsonText] = useState(en);
     // Basic variables //
-    const { title, text } = infoText;
+    let { title, text } = infoText;
+    text = text.split('|');
 
     //
     //
@@ -39,7 +40,17 @@ export default function InfoBoard({
             style={{ height: window.innerHeight, width: window.innerWidth }}>
             <div>
                 <h1>{title}</h1>
-                <p>{text}</p>
+                {text.map((para, i) => (
+                    <p
+                        className={`${i === 0 && txtIndex && 'level-req'} ${
+                            txtIndex && i !== 0 && 'tip'
+                        } ${para.includes('Tip') && 'tips'} ${
+                            para.includes('совет') && 'tips'
+                        } ${txtIndex && text.length - 1 === i && 'last-tip'}`}
+                        key={i}>
+                        {para}
+                    </p>
+                ))}
             </div>
         </div>
     );

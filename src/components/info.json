@@ -1,38 +1,38 @@
 {
     "en": [
         {
-            "title": "How to Play?",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?"
+            "title": "Welcome in Treasure Hunt!",
+            "text": "Оur goal is for you to have fun and usually your goal is to clear as many rows and columns as possible in as few moves as possible.|You can clear treasure pieces from the board by lining up three (or more) in a row, which is accomplished by swapping pieces of treasure in order to create three of a kind.|The initial objective of Treasure Hunt is to earn a certain number of points within a certain number of moves.|As you proceed through Treasure Hunt, other objectives (such as reaching a certain score within a certain number of moves or earning more Stars or Keys from the board) will become more common."
         },
         {
             "title": "Level 1",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?"
+            "text": "Earn minimum of 1200 points in less then 40 moves!| |Tip: How to win Stars!?|If you earn 100 Lucky points or 100 Move points you will win one Star(from 3 overall).|If you earn 200 Lucky points or 200 Move points you will win all three Stars(it means you beat the level Perfect!).|If you make a move and you don't have line of match three, you will be punished with -5 Move points."
         },
         {
             "title": "Level 2",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?"
+            "text": "Earn a minimum of 1500 points and 1 star in 40 moves! | Tip: How to win Keys and Special Items!? | In each move you can win one key if ... | a) You have more than 199 points in less than 9 moves. | b) You have more than 499 points in less of 14 moves. | c) You have more than 849 points in less than 19 moves. | d) You have more than 1199 points in less than 24 moves. |In each level you can win a maximum of 5 Special items that will make the game easier, if ... | a) You have more than 300 points. | B) You have more than 600 points. | C) You have more than 900 points. | d) You have more than 1200 points. | e) You have more than 1500 points. | To use the special item click on it and then on the adjacent field where you want to use it. It will destroy all items vertically and horizontally."
         },
         {
             "title": "Level 3",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?"
+            "text": "Earn a minimum of 2000 points or a minimum of 15 keys or 3 stars!| Tip: How to drastically increase your wealth!? | For each line of match in the vertical or horizontal you get points. |If you pair 3 identical items you get 6 points and 1 point for a minimum of one combo (So 7 points). | If you pair 4 of the same item, you get 49 points plus 1 combo point (50 points).|A line match of 5 of the same brings you an incredible 200 points (199 + 1 combo point) | If you have two or more pairs at the same time you get points for each pair individually (depending on how many paired items you have) plus combo points that are multiplied 3 times (eg for 5 pairs, 5 x 5 x 5 = 125 points)."
         }
     ],
     "mk": [
         {
-            "title": "Како се игра?",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?"
+            "title": "Добредојдовте во Treasure Hunt!",
+            "text": "Нашата цел е вие да се забавувате, a вообичаено вашата цел е да испразните колу што е можно повеќе полиња вертикално и хоризонтално во колку што е можно помалку потези.|Можете да испразните вредносни елемнти(итеми) така што ќе ги поврзете во иста иста линија три по ред(или повеќе).|Тоа ќе го постигнете со одбирање на елементот кој што сакате да го преместите, па одбирање на елементот со кој што сакате да го замените се со цел да споите минимум три идентични итеми.|Главната цел на Treasure Hunt е да освоите одреден број на поени во одреден број на потези.|Како што ќе напредувате низ Treasure Hunt, други препреки (како што се достигнување на одреден број на поени во одреден број на потези или освојувајки одреден број Звезди или Клучеви од Бордот) ќе станат се по присутни."
         },
         {
-            "title": "Level 1 мкд",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?"
+            "title": "Левел 1",
+            "text": "Освојте минимум 1200 поени во 40 потези!| |совет: Како да освоите Звезди!?|За освоени 100 среќни поени или 100 поени од потег добивате по една звезда(од вкупно три).|За освоени 200 среќни поени или 200 поени од потег ги добивате сите три звезди(односно го поминувате левелот совршено(Perfect!)).|Доколку направите потег а немате спојка ќе бидете казнети(односно ќе ви бидат одземени 5 поени од потег)."
         },
         {
-            "title": "Level 2 мкд",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?"
+            "title": "Левел 2",
+            "text": "Освојте минимум 1500 поени и 1 звезда во 40 потези!| |совет: Како да освоите Клучеви и Специјални предмети!?|Во секој потег можете да освоите по еден клуч ако...|a) Имате повеќе од 199 поени во помалку од 9 потега.|б) Имате повеќе од 499 поени во помалку од 14 потега.|в) Имате повеќе од 849 поени во помалку од 19 потега.|г) Имате повеќе од 1199 поени во помалку од 24 потега.|Во секој левел можете да освоите максимум 5 Специјални предмети кои ќе во ја олеснат играта и тоа ако...|а) Имате повеќе од 300 поени.|б) Имате повеќе од 600 поени.|в) Имате повеќе од 900 поени.|г) Имате повеќе од 1200 поени.|д) Имате повеќе од 1500 поени.|За да го искористите специјалниот предмет кликнете на него и на соседното поле каде што сакате да го употребите.Истиот ќе ги уништи сите предмети во нигова вертикала и хоризонтала."
         },
         {
-            "title": "Level 3 мкд",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.Rerum eveniet voluptatibus sapiente impedit quis error accusantium sit illo ratione, cupiditate, hic officiis, odit illum id dicta? Debitis, neque delectus. Consequatur dignissimos eveniet autem explicabo debitis laborum exercitationem accusamus facilis dolore?"
+            "title": "Левел 3",
+            "text": "Освојте минимум 2000 поени или минимум 15 клуча или 3 звезди!| |совет: Како драстично да го зголемите вашето богатство!?|За секоја спарка во вертикала или хоризонтала добивате поени.|Доколку спарите 3 исти предмети добивате 6 поени и 1 поен за минимум едно комбо(Значи 7 поена).|Доколку спарите 4 исти, добивате 49 поени плус 1комбо поен(50 поени).|Спарка од 5 исти ви носи неверојатни 200 поени(199 + 1комбо поен).|Доколку имате истовремено две или повеќе спарки добивате поени за секоја спарка поединечно(зависно колку спарени предмети) плус комбо поени кои што се множат 3пати(пр. за 5 спарки, 5 х 5 х 5 = 125поени)."
         }
     ]
 }
