@@ -1,47 +1,35 @@
 .box-item {
-    width: var(--item-size);
-    height: var(--item-size);
+    /* width: var(--item-size); */
+    /* height: var(--item-size); */
+    width: 36px;
+    height: 36px;
 }
 
-.active > .item-1,
+/* .active > .item-1, */
+/* .active > .item-5, */
+/* .active > .item-6, */
+/* .box-field:hover > .item-1, */
+/* .box-field:hover > .item-5, */
+/* .box-field:hover > .item-6  */
 .active > .special-1,
-.active > .item-5,
-.active > .item-6,
-.box-field:hover > .item-1,
-.box-field:hover > .special-1,
-.box-field:hover > .item-5,
-.box-field:hover > .item-6 {
+.box-field:hover > .special-1 {
     width: var(--item-size-hover);
     height: var(--item-size-hover);
 }
 
-.active > .item-3,
-.active > .item-4,
-.box-field:hover > .item-3,
-.box-field:hover > .item-4 {
-    border-left: calc(var(--item-size) / 2 + 0.2rem) solid transparent;
-    border-right: calc(var(--item-size) / 2 + 0.2rem) solid transparent;
-}
-
-.active > .item-3,
-.box-field:hover > .item-3 {
-    border-top: calc(var(--item-size) + 0.2rem) solid hsl(var(--red), 50%);
-}
-
-.active > .item-4,
-.box-field:hover > .item-4 {
-    border-bottom: calc(var(--item-size) + 0.2rem) solid hsl(var(--blue), 50%);
-}
-
+.active > .item-1,
 .active > .item-2,
-.box-field:hover > .item-2 {
-    width: calc(var(--item-size) - 0.2rem);
-    height: calc(var(--item-size) - 0.2rem);
-}
-
-.item-1 {
-    background-color: hsl(var(--green), 44%);
-    border: 1px solid hsl(var(--green), 34%);
+.active > .item-3,
+.active > .item-4,
+.active > .item-5,
+.active > .item-6,
+.box-field:hover > .item-1,
+.box-field:hover > .item-2,
+.box-field:hover > .item-3,
+.box-field:hover > .item-4,
+.box-field:hover > .item-5,
+.box-field:hover > .item-6 {
+    transform: scale(1.2);
 }
 
 .special-1 {
@@ -52,14 +40,69 @@
     animation: rotateItem 2000ms ease-in-out infinite;
 }
 
+.item-1 {
+    background-image: url('../layout/item-1.png');
+}
+
 .item-2 {
+    background-image: url('../layout/item-2.png');
+}
+
+.item-3 {
+    background-image: url('../layout/item-3.png');
+}
+
+.item-4 {
+    background-image: url('../layout/item-4.png');
+}
+
+.item-5 {
+    background-image: url('../layout/item-5.png');
+}
+
+.item-6 {
+    background-image: url('../layout/item-6.png');
+}
+
+/* .active > .item-3,
+.active > .item-4,
+.box-field:hover > .item-3,
+.box-field:hover > .item-4 {
+    border-left: calc(var(--item-size) / 2 + 0.2rem) solid transparent;
+    border-right: calc(var(--item-size) / 2 + 0.2rem) solid transparent;
+} */
+/* 
+.active > .item-3,
+.box-field:hover > .item-3 {
+    border-top: calc(var(--item-size) + 0.2rem) solid hsl(var(--red), 50%);
+} */
+/* 
+.active > .item-4,
+.box-field:hover > .item-4 {
+    border-bottom: calc(var(--item-size) + 0.2rem) solid hsl(var(--blue), 50%);
+} */
+/* 
+.active > .item-2,
+.box-field:hover > .item-2 {
+    width: calc(var(--item-size) - 0.2rem);
+    height: calc(var(--item-size) - 0.2rem);
+    transform: scale(1.2);
+} */
+
+/* .item-1 {
+    background-color: hsl(var(--green), 44%);
+    border: 1px solid hsl(var(--green), 34%);
+} */
+
+/* .item-2 { 
+    transform: scale(0.7); 
     width: calc(var(--item-size) - 0.3rem);
     height: calc(var(--item-size) - 0.3rem);
     background-color: hsl(var(--pink), 45%);
     transform: rotate(45deg);
-}
+} */
 
-.item-3 {
+/* .item-3 {
     width: 0;
     height: 0;
     border-left: calc(var(--item-size) / 2) solid transparent;
@@ -86,10 +129,10 @@
     border: hsl(var(--orange), 30%);
     border-radius: 0.5rem;
     transform: rotate(12deg) skew(30deg);
-}
+} */
 
-.item-1,
 .special-1,
+.item-1,
 .item-2,
 .item-3,
 .item-4,

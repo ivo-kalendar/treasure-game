@@ -1,4 +1,4 @@
-import treasure from '../styles/treasure.png';
+import treasure from '../layout/treasure.png';
 
 export default function Logo() {
     return (

@@ -11,7 +11,7 @@ import InfoBoard from './InfoBoard';
 
 export default function App() {
     // Basic variables //
-    const movesLimit = 3; // 39
+    const movesLimit = 39; // 39
     // State variables //
     const [playGame, setPlayGame] = useState(false);
     const [points, setPoints] = useState(0);
