@@ -19,6 +19,18 @@
     color: hsl(var(--green), 15%);
 }
 
+.green {
+    color: hsl(var(--green), 20%);
+}
+
+.yellow {
+    color: hsl(var(--yellow), 20%);
+}
+
+.red {
+    color: hsl(var(--red), 30%);
+}
+
 .game-screen > .game-bar > h2 .levels {
     color: hsl(var(--red), 25%);
 }

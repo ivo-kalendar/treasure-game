@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+// import key from '../layout/key.png';GiKey
+import { FaKey } from 'react-icons/fa';
+import Stars from './Stars';
 
 export default function GameBar({
     points,
@@ -21,6 +24,25 @@ export default function GameBar({
         // eslint-disable-next-line
     }, [moves]);
 
+    //
+    //
+    // Styles //
+    const movesColor =
+        movesLeft > 15 ? 'green' : movesLeft > 5 ? 'yellow' : 'red';
+    const keysColor = keys > 14 ? 'green' : keys > 5 ? 'yellow' : 'red';
+    const luckyColor =
+        luckyMatch.points > 99
+            ? 'green'
+            : luckyMatch.points > 79
+            ? 'yellow'
+            : 'red';
+    const matchColor =
+        swapMatch.points > 99
+            ? 'green'
+            : swapMatch.points > 79
+            ? 'yellow'
+            : 'red';
+
     return (
         <div className='game-bar'>
             <h2>
@@ -39,16 +61,16 @@ export default function GameBar({
             </h2>
             <h3 className='no-need pc'>
                 {language === 'en' ? 'Remaining Moves: ' : 'Преост. Потези: '}
-                {movesLeft}
+                <span className={movesColor}>{movesLeft}</span>
             </h3>
             <h4>
-                {language === 'en' ? 'Keys: ' : 'Клуч: '}
-                {keys}.{language === 'en' ? ' Stars: ' : ' Звезди: '}
-                {stars}{' '}
+                <FaKey style={{ transform: 'translateY(15%)' }} /> x{' '}
+                <span className={keysColor}>{keys} </span>
                 <span className='no-need phone'>
                     {language === 'en' ? 'Moves: ' : 'Потег: '}
-                    {movesLeft}
+                    <span className={movesColor}>{movesLeft}</span>
                 </span>
+                <Stars stars={stars} />
             </h4>
             <h5>
                 <span className='no-need'>
@@ -76,13 +98,13 @@ export default function GameBar({
                 ) : (
                     <span className='small-letters'>Среќни Поени: </span>
                 )}
-                {luckyMatch.points}.{' '}
+                <span className={luckyColor}>{luckyMatch.points}. </span>
                 {language === 'en' ? (
                     'Move Points: '
                 ) : (
                     <span className='small-letters'>Поени од Потег: </span>
                 )}
-                {swapMatch.points}
+                <span className={matchColor}>{swapMatch.points}</span>
             </h5>
         </div>
     );

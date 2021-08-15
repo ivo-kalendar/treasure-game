@@ -41,6 +41,12 @@
     justify-content: space-around;
 }
 
+.levelCompleted .green,
+.levelCompleted .red,
+.levelCompleted .yellow {
+    color: #fff;
+}
+
 .levelCompleted > .howtoplay {
     z-index: 3;
     position: absolute;
