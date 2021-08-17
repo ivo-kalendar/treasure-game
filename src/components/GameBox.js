@@ -25,6 +25,9 @@ export default function GameBox({
     const [activeIndex, setActiveIndex] = useState(undefined);
     const [specialItems, setSpecialItems] = useState([]);
     const [fillPoints, setFillPoints] = useState([]);
+    const [touchPos, setTouchPos] = useState({ clientX: 0, clientY: 0 });
+    const [mouseDown, setMouseDown] = useState(false);
+    const [swapIndex, setSwapIndex] = useState(undefined);
 
     //
     //
@@ -57,7 +60,8 @@ export default function GameBox({
             setStedyBox([...emptyArr, ...matchedFields]);
         }
 
-        setTimeout(() => checkMatch(), 150);
+        // setTimeout(() => checkMatch(), 150);
+        checkMatch();
         // eslint-disable-next-line
     }, [fields, matchedFields]);
 
@@ -88,7 +92,6 @@ export default function GameBox({
     // Check for match when you start the game or after you make a match //
     const matchOnLuck = () => {
         if (moves === 0) {
-            // setFillPoints(0);
             setFillPoints((prevArr) => {
                 if (prevArr.length) return prevArr.shift();
                 if (!prevArr.length) return [];
@@ -256,14 +259,16 @@ export default function GameBox({
 
             fields.forEach((obj, i) => {
                 let newObj;
-                if (matchThree.includes(obj.field)) {
-                    newObj = obj;
-                    newObj.element = 'empty';
-                    setMatchedFields((oldArr) => {
-                        let fullArr = [...oldArr, ...matchThree];
-                        return [...new Set(fullArr)];
-                    });
-                }
+                setTimeout(() => {
+                    if (matchThree.includes(obj.field)) {
+                        newObj = obj;
+                        newObj.element = 'empty';
+                        setMatchedFields((oldArr) => {
+                            let fullArr = [...oldArr, ...matchThree];
+                            return [...new Set(fullArr)];
+                        });
+                    }
+                }, 150);
             });
         }
     };
@@ -326,6 +331,12 @@ export default function GameBox({
                     startGame={startGame}
                     setStartGame={setStartGame}
                     setFillPoints={setFillPoints}
+                    touchPos={touchPos}
+                    setTouchPos={setTouchPos}
+                    mouseDown={mouseDown}
+                    setMouseDown={setMouseDown}
+                    swapIndex={swapIndex}
+                    setSwapIndex={setSwapIndex}
                 />
             ))}
         </div>

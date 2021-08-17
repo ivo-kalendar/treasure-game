@@ -26,6 +26,12 @@ export default function BoxField({
     startGame,
     setStartGame,
     setFillPoints,
+    touchPos,
+    setTouchPos,
+    mouseDown,
+    setMouseDown,
+    swapIndex,
+    setSwapIndex,
 }) {
     //
     // Basic variables //
@@ -225,7 +231,7 @@ export default function BoxField({
     //
     //
     // Set Active field or swap if active on Click //
-    const clicked = () => {
+    const clicked = (e) => {
         let activeField = false;
         let noEmptyFileds = !fields.filter((o) => o.element === 'empty').length;
 
@@ -234,18 +240,32 @@ export default function BoxField({
         let oldSwapObj;
         if (Object.entries(neighbors).length) {
             Object.entries(neighbors).forEach(([key, value]) => {
-                if (value === field) {
+                if (swapIndex || value === field) {
                     let activeEl = fields[activeIndex].element;
-                    let swapEl = fields[index].element;
+                    let swapEl = swapIndex
+                        ? fields[swapIndex].element
+                        : fields[index].element;
                     let activeObj = { ...fields[activeIndex], element: swapEl };
-                    let swapObj = { ...fields[index], element: activeEl };
-                    oldSwapObj = fields[index];
-                    changeFields((oldArr) => {
-                        oldArr[activeIndex] = activeObj;
-                        oldArr[index] = swapObj;
+                    let swapObj = swapIndex
+                        ? { ...fields[swapIndex], element: activeEl }
+                        : { ...fields[index], element: activeEl };
+                    oldSwapObj = swapIndex ? fields[swapIndex] : fields[index];
+                    if (swapIndex) {
+                        changeFields((oldArr) => {
+                            oldArr[activeIndex] = activeObj;
+                            oldArr[swapIndex] = swapObj;
 
-                        return [...oldArr];
-                    });
+                            return [...oldArr];
+                        });
+                    } else {
+                        changeFields((oldArr) => {
+                            oldArr[activeIndex] = activeObj;
+                            oldArr[index] = swapObj;
+
+                            return [...oldArr];
+                        });
+                    }
+
                     setNeighbors({});
                     activeField = true;
                     return oldSwapObj;
@@ -275,13 +295,32 @@ export default function BoxField({
         if (noEmptyFileds && activeField && swap[0]?.element === 'special-1') {
             let blowLines = [];
 
-            setSwap((actSwapObj) => {
-                return [...actSwapObj, { fieldIndex: index, ...oldSwapObj }];
-            });
+            if (swapIndex) {
+                setSwap((actSwapObj) => {
+                    return [
+                        ...actSwapObj,
+                        { fieldIndex: swapIndex, ...oldSwapObj },
+                    ];
+                });
+            } else {
+                setSwap((actSwapObj) => {
+                    return [
+                        ...actSwapObj,
+                        { fieldIndex: index, ...oldSwapObj },
+                    ];
+                });
+            }
 
             fields.forEach((obj, i) => {
-                let l = obj.field.includes(field[0]);
-                let n = obj.field.includes(field[1]);
+                let l, n;
+                if (swapIndex) {
+                    let field = fields[swapIndex].field;
+                    l = obj.field.includes(field[0]);
+                    n = obj.field.includes(field[1]);
+                } else {
+                    l = obj.field.includes(field[0]);
+                    n = obj.field.includes(field[1]);
+                }
                 if (l || n) {
                     setTimeout(() => {
                         changeFields((oldArr) => {
@@ -308,12 +347,23 @@ export default function BoxField({
 
             setActiveIndex(undefined);
         }
-
         // if active field
         if (noEmptyFileds && activeField && swap[0]?.element !== 'special-1') {
-            setSwap((actSwapObj) => {
-                return [...actSwapObj, { fieldIndex: index, ...oldSwapObj }];
-            });
+            if (swapIndex !== undefined) {
+                setSwap((actSwapObj) => {
+                    return [
+                        ...actSwapObj,
+                        { fieldIndex: swapIndex, ...oldSwapObj },
+                    ];
+                });
+            } else {
+                setSwap((actSwapObj) => {
+                    return [
+                        ...actSwapObj,
+                        { fieldIndex: index, ...oldSwapObj },
+                    ];
+                });
+            }
 
             changeFields((oldArr) => {
                 oldArr.forEach((obj, i) => {
@@ -324,8 +374,64 @@ export default function BoxField({
             });
 
             setTimeout(() => setMatchedFields([]), 500);
-
             setActiveIndex(undefined);
+        }
+    };
+
+    const mouseMove = (e) => {
+        if (mouseDown && swap.length) {
+            clicked(e);
+        }
+        if (swap.length === 2) {
+            setMouseDown(false);
+        }
+    };
+
+    const touchStart = (e) => {
+        let obj = {
+            clientX: e.changedTouches[0].clientX,
+            clientY: e.changedTouches[0].clientY,
+        };
+        setTouchPos(obj);
+
+        setMouseDown(true);
+        clicked(e);
+    };
+
+    const touchMove = (e) => {
+        if (mouseDown && swap.length) {
+            if (swapIndex) clicked(e);
+            let { clientX, clientY } = touchPos;
+            let swipeX = e.changedTouches[0].clientX;
+            let swipeY = e.changedTouches[0].clientY;
+            if (!swapIndex && clientX + 80 < swipeX && neighbors.right) {
+                let swipeIndexLocale = fields.findIndex(
+                    (el) => el.field === neighbors.right
+                );
+                setSwapIndex(swipeIndexLocale);
+            }
+            if (!swapIndex && clientX - 80 > swipeX && neighbors.left) {
+                let swipeIndexLocale = fields.findIndex(
+                    (el) => el.field === neighbors.left
+                );
+                setSwapIndex(swipeIndexLocale);
+            }
+            if (!swapIndex && clientY + 80 < swipeY && neighbors.down) {
+                let swipeIndexLocale = fields.findIndex(
+                    (el) => el.field === neighbors.down
+                );
+                setSwapIndex(swipeIndexLocale);
+            }
+            if (!swapIndex && clientY - 80 > swipeY && neighbors.up) {
+                let swipeIndexLocale = fields.findIndex(
+                    (el) => el.field === neighbors.up
+                );
+                setSwapIndex(swipeIndexLocale);
+            }
+        }
+        if (swap.length === 2) {
+            setSwapIndex(undefined);
+            setMouseDown(false);
         }
     };
 
@@ -334,7 +440,18 @@ export default function BoxField({
             className={`box-field ${field} ${active} ${
                 matchedFields.includes(field) ? 'blow' : ''
             }`}
-            onClick={clicked}>
+            onMouseDown={(e) => {
+                setMouseDown(true);
+                clicked(e);
+            }}
+            onMouseUp={() => setMouseDown(false)}
+            onMouseMove={mouseMove}
+            onTouchStart={touchStart}
+            onTouchMove={touchMove}
+            onTouchEnd={() => {
+                setSwapIndex(undefined);
+                setMouseDown(false);
+            }}>
             <BoxItem item={item} />
         </div>
     );

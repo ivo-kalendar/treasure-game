@@ -87,8 +87,8 @@ export default function App() {
     const getStars = () => {
         if (luckyMatch.points > 99) luckyStar = 1;
         if (swapMatch.points > 99) movesStars = 1;
-        if (luckyMatch.points > 199) luckyStar = 2;
-        if (swapMatch.points > 199) movesStars = 2;
+        if (luckyMatch.points > 199) luckyStar = 3;
+        if (swapMatch.points > 199) movesStars = 3;
         let fp = luckyStar + movesStars;
         if (fp === 4) fp = 3;
 
