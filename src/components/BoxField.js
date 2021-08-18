@@ -243,24 +243,35 @@ export default function BoxField({
         if (Object.entries(neighbors).length) {
             Object.entries(neighbors).forEach(([key, value]) => {
                 if (swapIndex || value === field) {
-                    let activeEl = fields[activeIndex].element;
-                    let swapEl = swapIndex
-                        ? fields[swapIndex].element
-                        : fields[index].element;
-                    let activeObj = { ...fields[activeIndex], element: swapEl };
-                    let swapObj = swapIndex
-                        ? { ...fields[swapIndex], element: activeEl }
-                        : { ...fields[index], element: activeEl };
-                    oldSwapObj = swapIndex ? fields[swapIndex] : fields[index];
                     if (swapIndex) {
+                        let activeEl = fields[activeIndex].element;
+                        let swapEl = fields[swapIndex].element;
+                        let activeObj = {
+                            ...fields[activeIndex],
+                            element: swapEl,
+                        };
+                        let swapObj = {
+                            ...fields[swapIndex],
+                            element: activeEl,
+                        };
+                        oldSwapObj = fields[swapIndex];
+
                         changeFields((oldArr) => {
                             oldArr[activeIndex] = activeObj;
                             oldArr[swapIndex] = swapObj;
-                            console.log(activeObj, swapObj);
 
                             return [...oldArr];
                         });
                     } else {
+                        let activeEl = fields[activeIndex].element;
+                        let swapEl = fields[index].element;
+                        let activeObj = {
+                            ...fields[activeIndex],
+                            element: swapEl,
+                        };
+                        let swapObj = { ...fields[index], element: activeEl };
+                        oldSwapObj = fields[index];
+
                         changeFields((oldArr) => {
                             oldArr[activeIndex] = activeObj;
                             oldArr[index] = swapObj;
@@ -472,11 +483,10 @@ export default function BoxField({
             onTouchStart={touchStart}
             onTouchMove={touchMove}
             onTouchEnd={(e) => {
-                if (swapIndex) clicked(e);
-
                 setSwapIndex(undefined);
                 setTouchDown(false);
                 setMouseDown(false);
+                if (swapIndex) clicked(e);
             }}>
             <BoxItem item={item} />
         </div>
