@@ -30,6 +30,8 @@ export default function BoxField({
     setTouchPos,
     mouseDown,
     setMouseDown,
+    touchDown,
+    setTouchDown,
     swapIndex,
     setSwapIndex,
 }) {
@@ -297,6 +299,7 @@ export default function BoxField({
 
             if (swapIndex) {
                 setMouseDown(false);
+                setTouchDown(false);
                 setSwap((actSwapObj) => {
                     return [
                         ...actSwapObj,
@@ -351,6 +354,7 @@ export default function BoxField({
         // if active field
         if (noEmptyFileds && activeField && swap[0]?.element !== 'special-1') {
             if (swapIndex) {
+                setTouchDown(false);
                 setMouseDown(false);
                 setSwap((actSwapObj) => {
                     return [
@@ -386,6 +390,7 @@ export default function BoxField({
         }
         if (swap.length === 2) {
             setMouseDown(false);
+            setTouchDown(false);
         }
     };
 
@@ -396,7 +401,8 @@ export default function BoxField({
         };
         setTouchPos(obj);
 
-        setMouseDown(true);
+        setTouchDown(true);
+        setMouseDown(false);
         clicked(e);
     };
 
@@ -404,8 +410,9 @@ export default function BoxField({
         if (swap.length === 2) {
             setSwapIndex(undefined);
             setMouseDown(false);
+            setTouchDown(false);
         }
-        if (mouseDown && swap.length) {
+        if (!mouseDown && touchDown && swap.length) {
             if (swapIndex) clicked(e);
             let { clientX, clientY } = touchPos;
             let swipeX = e.changedTouches[0].clientX;
@@ -444,14 +451,19 @@ export default function BoxField({
             }`}
             onMouseDown={(e) => {
                 setMouseDown(true);
+                setTouchDown(false);
                 clicked(e);
             }}
-            onMouseUp={() => setMouseDown(false)}
+            onMouseUp={() => {
+                setTouchDown(false);
+                setMouseDown(false);
+            }}
             onMouseMove={mouseMove}
             onTouchStart={touchStart}
             onTouchMove={touchMove}
             onTouchEnd={() => {
                 setSwapIndex(undefined);
+                setTouchDown(false);
                 setMouseDown(false);
             }}>
             <BoxItem item={item} />

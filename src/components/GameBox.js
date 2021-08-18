@@ -27,6 +27,7 @@ export default function GameBox({
     const [fillPoints, setFillPoints] = useState([]);
     const [touchPos, setTouchPos] = useState({ clientX: 0, clientY: 0 });
     const [mouseDown, setMouseDown] = useState(false);
+    const [touchDown, setTouchDown] = useState(false);
     const [swapIndex, setSwapIndex] = useState(undefined);
 
     //
@@ -335,6 +336,8 @@ export default function GameBox({
                     setTouchPos={setTouchPos}
                     mouseDown={mouseDown}
                     setMouseDown={setMouseDown}
+                    touchDown={touchDown}
+                    setTouchDown={setTouchDown}
                     swapIndex={swapIndex}
                     setSwapIndex={setSwapIndex}
                 />
