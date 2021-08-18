@@ -296,6 +296,7 @@ export default function BoxField({
             let blowLines = [];
 
             if (swapIndex) {
+                setMouseDown(false);
                 setSwap((actSwapObj) => {
                     return [
                         ...actSwapObj,
@@ -349,7 +350,8 @@ export default function BoxField({
         }
         // if active field
         if (noEmptyFileds && activeField && swap[0]?.element !== 'special-1') {
-            if (swapIndex !== undefined) {
+            if (swapIndex) {
+                setMouseDown(false);
                 setSwap((actSwapObj) => {
                     return [
                         ...actSwapObj,
@@ -399,39 +401,39 @@ export default function BoxField({
     };
 
     const touchMove = (e) => {
+        if (swap.length === 2) {
+            setSwapIndex(undefined);
+            setMouseDown(false);
+        }
         if (mouseDown && swap.length) {
             if (swapIndex) clicked(e);
             let { clientX, clientY } = touchPos;
             let swipeX = e.changedTouches[0].clientX;
             let swipeY = e.changedTouches[0].clientY;
-            if (!swapIndex && clientX + 80 < swipeX && neighbors.right) {
+            if (!swapIndex && clientX + 20 < swipeX && neighbors.right) {
                 let swipeIndexLocale = fields.findIndex(
                     (el) => el.field === neighbors.right
                 );
                 setSwapIndex(swipeIndexLocale);
             }
-            if (!swapIndex && clientX - 80 > swipeX && neighbors.left) {
+            if (!swapIndex && clientX - 20 > swipeX && neighbors.left) {
                 let swipeIndexLocale = fields.findIndex(
                     (el) => el.field === neighbors.left
                 );
                 setSwapIndex(swipeIndexLocale);
             }
-            if (!swapIndex && clientY + 80 < swipeY && neighbors.down) {
+            if (!swapIndex && clientY + 20 < swipeY && neighbors.down) {
                 let swipeIndexLocale = fields.findIndex(
                     (el) => el.field === neighbors.down
                 );
                 setSwapIndex(swipeIndexLocale);
             }
-            if (!swapIndex && clientY - 80 > swipeY && neighbors.up) {
+            if (!swapIndex && clientY - 20 > swipeY && neighbors.up) {
                 let swipeIndexLocale = fields.findIndex(
                     (el) => el.field === neighbors.up
                 );
                 setSwapIndex(swipeIndexLocale);
             }
-        }
-        if (swap.length === 2) {
-            setSwapIndex(undefined);
-            setMouseDown(false);
         }
     };
 

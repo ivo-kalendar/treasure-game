@@ -79,7 +79,7 @@ export default function GameBox({
             swap[0].element !== 'special-1'
         ) {
             makeAMove();
-            swapBack(); // no match
+            setTimeout(() => swapBack(), 300); // no match
         }
         if (matchedFields.length && !swap.length) {
             matchOnLuck(); // match on luck
