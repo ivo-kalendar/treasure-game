@@ -256,6 +256,7 @@ export default function BoxField({
                         changeFields((oldArr) => {
                             oldArr[activeIndex] = activeObj;
                             oldArr[swapIndex] = swapObj;
+                            console.log(activeObj, swapObj);
 
                             return [...oldArr];
                         });
@@ -413,29 +414,38 @@ export default function BoxField({
             setTouchDown(false);
         }
         if (!mouseDown && touchDown && swap.length) {
-            if (swapIndex) clicked(e);
+            // if (swapIndex) clicked(e);
             let { clientX, clientY } = touchPos;
             let swipeX = e.changedTouches[0].clientX;
             let swipeY = e.changedTouches[0].clientY;
-            if (!swapIndex && clientX + 20 < swipeX && neighbors.right) {
+
+            let rightTouch =
+                !swapIndex && clientX + 60 < swipeX && neighbors.right;
+            let leftTouch =
+                !swapIndex && clientX - 60 > swipeX && neighbors.left;
+            let downTouch =
+                !swapIndex && clientY + 60 < swipeY && neighbors.down;
+            let upTouch = !swapIndex && clientY - 60 > swipeY && neighbors.up;
+
+            if (rightTouch && !leftTouch && !downTouch && !upTouch) {
                 let swipeIndexLocale = fields.findIndex(
                     (el) => el.field === neighbors.right
                 );
                 setSwapIndex(swipeIndexLocale);
             }
-            if (!swapIndex && clientX - 20 > swipeX && neighbors.left) {
+            if (leftTouch && !rightTouch && !downTouch && !upTouch) {
                 let swipeIndexLocale = fields.findIndex(
                     (el) => el.field === neighbors.left
                 );
                 setSwapIndex(swipeIndexLocale);
             }
-            if (!swapIndex && clientY + 20 < swipeY && neighbors.down) {
+            if (downTouch && !upTouch && !leftTouch && !rightTouch) {
                 let swipeIndexLocale = fields.findIndex(
                     (el) => el.field === neighbors.down
                 );
                 setSwapIndex(swipeIndexLocale);
             }
-            if (!swapIndex && clientY - 20 > swipeY && neighbors.up) {
+            if (upTouch && !downTouch && !leftTouch && !rightTouch) {
                 let swipeIndexLocale = fields.findIndex(
                     (el) => el.field === neighbors.up
                 );
@@ -461,7 +471,9 @@ export default function BoxField({
             onMouseMove={mouseMove}
             onTouchStart={touchStart}
             onTouchMove={touchMove}
-            onTouchEnd={() => {
+            onTouchEnd={(e) => {
+                if (swapIndex) clicked(e);
+
                 setSwapIndex(undefined);
                 setTouchDown(false);
                 setMouseDown(false);
