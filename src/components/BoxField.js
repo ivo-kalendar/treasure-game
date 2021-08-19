@@ -80,7 +80,7 @@ export default function BoxField({
         }, 50);
         return () => clearTimeout(timeout);
         // eslint-disable-next-line
-    }, [startGame, item, swap]);
+    }, [startGame, item, swap, field]);
 
     //
     //
