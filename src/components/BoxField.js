@@ -77,10 +77,22 @@ export default function BoxField({
                 fillAllEmptyFields();
                 makeNewEmptyFields();
             }
-        }, 50);
+        }, 10);
         return () => clearTimeout(timeout);
         // eslint-disable-next-line
-    }, [startGame, item, swap, field]);
+    }, [startGame, item, swap]);
+
+    useEffect(() => {
+        let timeout = setTimeout(() => {
+            let emptyFields = fields.filter((o) => o.element === 'empty');
+            if (emptyFields.length && startGame === true) {
+                fillEmptyFields();
+                fillAllEmptyFields();
+                makeNewEmptyFields();
+            }
+        }, 1000);
+        return () => clearTimeout(timeout);
+    });
 
     //
     //
