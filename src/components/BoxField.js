@@ -66,7 +66,7 @@ export default function BoxField({
         let timeout;
         clearTimeout(timeout);
         onInitStartGame();
-        return () => (timeout = setTimeout(() => setStartGame(true), 1500));
+        return () => (timeout = setTimeout(() => setStartGame(true), 300));
         // eslint-disable-next-line
     }, [fields]);
 
@@ -77,7 +77,7 @@ export default function BoxField({
                 fillAllEmptyFields();
                 makeNewEmptyFields();
             }
-        }, 10);
+        }, 50);
         return () => clearTimeout(timeout);
         // eslint-disable-next-line
     }, [startGame, item, swap]);
@@ -90,7 +90,7 @@ export default function BoxField({
                 fillAllEmptyFields();
                 makeNewEmptyFields();
             }
-        }, 1000);
+        }, 55);
         return () => clearTimeout(timeout);
     });
 
